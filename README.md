@@ -1,2 +1,0 @@
-# MidtermProject
-midtermproj
