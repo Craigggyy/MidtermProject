@@ -26,7 +26,7 @@ href="css/style.css">
 
 </head>
 
-<body>
+<body class="has-bg">
 
 <div class="navbar">
 

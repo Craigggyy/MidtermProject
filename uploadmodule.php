@@ -127,12 +127,12 @@ href="css/style.css">
 
 </head>
 
-<body>
+<body class="has-bg">
 
 <div class="navbar">
 
 <div class="logo">
-EduVault
+Scholara
 </div>
 
 <ul>
