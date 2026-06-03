@@ -2,44 +2,25 @@
 
 session_start();
 
-function textreader(
-$inputname,
-$inputpassword,
-$inputtype)
+function textreader($inputname, $inputpassword, $inputtype)
 {
     $textsource = "users.txt";
 
     if(file_exists($textsource))
     {
-        $textcontent =
-        file(
-        $textsource,
-        FILE_IGNORE_NEW_LINES);
+        $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
 
-        foreach(
-        $textcontent
-        as $index => $linetext)
+        foreach($textcontent as $index => $linetext)
         {
             if($inputname == $linetext)
             {
                 if(
-                $inputpassword
-                ==
-                $textcontent[$index+1]
-                &&
-                $inputtype
-                ==
-                $textcontent[$index+2]
+                    $inputpassword == $textcontent[$index+1] &&
+                    $inputtype == $textcontent[$index+2]
                 )
                 {
-                    $_SESSION['sesUser']
-                    =
-                    $textcontent[$index];
-
-                    $_SESSION['sesUserType']
-                    =
-                    $textcontent[$index+2];
-
+                    $_SESSION['sesUser']     = $textcontent[$index];
+                    $_SESSION['sesUserType'] = $textcontent[$index+2];
                     return true;
                 }
             }
@@ -51,626 +32,612 @@ $inputtype)
 
 if(isset($_POST['btnLogin']))
 {
-    $username =
-    $_POST['txtUsername'];
+    $username = $_POST['txtUsername'];
+    $password = $_POST['txtPassword'];
+    $usertype = $_POST['txtUserType'];
 
-    $password =
-    $_POST['txtPassword'];
-
-    $usertype =
-    $_POST['txtUserType'];
-
-    $found =
-    textreader(
-    $username,
-    $password,
-    $usertype);
+    $found = textreader($username, $password, $usertype);
 
     if($found == false)
     {
-        die(
-        "<script>
-        alert('Invalid Account');
-        window.location='login.php';
-        </script>");
+        die("<script>alert('Invalid Account');window.location='login.php';</script>");
     }
 
-    if(
-    $_SESSION['sesUserType']
-    ==
-    "Teacher")
+    if($_SESSION['sesUserType'] == "Teacher")
     {
-        echo "<meta
-        http-equiv='refresh'
-        content='0;
-        url=home.php'>";
+        echo "<meta http-equiv='refresh' content='0;url=home.php'>";
     }
     else
     {
-        echo "<meta
-        http-equiv='refresh'
-        content='0;
-        url=studenthome.php'>";
+        echo "<meta http-equiv='refresh' content='0;url=studenthome.php'>";
     }
 }
 
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EduVault — Login</title>
+<title>EduVault — Log In</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  :root {
-    --cream: #faf8f5;
-    --white: #ffffff;
-    --panel-border: #e8e2d9;
-    --accent: #b5341c;
-    --accent-hover: #942b17;
-    --accent-light: rgba(181,52,28,0.08);
-    --text-primary: #1c1917;
-    --text-secondary: #44403c;
-    --text-muted: #a8a29e;
-    --input-bg: #fdfcfb;
-    --input-border: #ddd8d0;
-    --input-focus: #b5341c;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
-    --shadow-lg: 0 20px 60px rgba(0,0,0,0.10), 0 8px 24px rgba(0,0,0,0.06);
-    --radius: 8px;
-  }
+:root {
+  --canvas-navy:    #394B58;
+  --canvas-blue:    #0770A3;
+  --canvas-blue-dk: #0A5B80;
+  --canvas-blue-lt: #E8F4FA;
+  --canvas-border:  #C7CDD1;
+  --canvas-bg:      #F5F5F5;
+  --canvas-white:   #FFFFFF;
+  --canvas-text:    #2D3B45;
+  --canvas-muted:   #6B7780;
+  --canvas-label:   #394B58;
+  --canvas-error:   #D9534F;
+  --canvas-input-h: 40px;
+  --canvas-radius:  4px;
+}
 
-  html, body {
-    height: 100%;
-    font-family: 'Figtree', sans-serif;
-    background: var(--cream);
-  }
+html, body {
+  height: 100%;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--canvas-text);
+  background: var(--canvas-bg);
+  -webkit-font-smoothing: antialiased;
+}
 
-  body {
-    display: flex;
-    min-height: 100vh;
-  }
+body {
+  display: flex;
+  min-height: 100vh;
+}
 
-  /* ── LEFT HERO PANEL ── */
-  .hero-left {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(150deg, #fff8f6 0%, #fdf3ef 40%, #f5ede6 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px;
-  }
+/* ── LEFT BRANDED PANEL ── */
+.brand-panel {
+  width: 380px;
+  flex-shrink: 0;
+  background: var(--canvas-navy);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
 
-  .hero-left::before {
-    content: '';
-    position: absolute;
-    width: 520px;
-    height: 520px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(181,52,28,0.12);
-    top: -100px;
-    left: -100px;
-    pointer-events: none;
-  }
+.brand-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; right: -40px;
+  width: 80px;
+  height: 100%;
+  background: var(--canvas-bg);
+  transform: skewX(-4deg);
+  z-index: 2;
+}
 
-  .hero-left::after {
-    content: '';
-    position: absolute;
-    width: 360px;
-    height: 360px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(181,52,28,0.08);
-    bottom: -80px;
-    right: -80px;
-    pointer-events: none;
-  }
+.brand-top {
+  padding: 40px 44px 0;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-  .hero-decoration {
-    position: absolute;
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    border: 1px dashed rgba(181,52,28,0.15);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
+.brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 52px;
+}
 
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    max-width: 400px;
-  }
+.brand-logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--canvas-blue);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--white);
-    border: 1px solid var(--panel-border);
-    border-radius: 100px;
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: 0.04em;
-    margin-bottom: 28px;
-    box-shadow: var(--shadow-sm);
-  }
+.brand-logo-mark svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
 
-  .hero-badge-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
+.brand-logo-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
 
-  .hero-heading {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.2;
-    margin-bottom: 18px;
-    letter-spacing: -0.02em;
-  }
+.brand-headline {
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
 
-  .hero-heading em {
-    font-style: italic;
-    color: var(--accent);
-  }
+.brand-headline strong {
+  font-weight: 700;
+  display: block;
+}
 
-  .hero-body {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.75;
-    margin-bottom: 36px;
-  }
+.brand-sub {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+  max-width: 260px;
+  margin-bottom: 44px;
+}
 
-  /* Testimonial / quote card */
-  .quote-card {
-    background: var(--white);
-    border: 1px solid var(--panel-border);
-    border-radius: 14px;
-    padding: 20px 22px;
-    text-align: left;
-    box-shadow: var(--shadow-md);
-    position: relative;
-  }
+/* Divider */
+.brand-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--canvas-blue);
+  margin-bottom: 36px;
+  border-radius: 2px;
+}
 
-  .quote-mark {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    color: var(--accent);
-    line-height: 0.8;
-    margin-bottom: 8px;
-    display: block;
-    opacity: 0.6;
-  }
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: auto;
+}
 
-  .quote-text {
-    font-size: 0.86rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 14px;
-    font-style: italic;
-  }
+.stat-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
 
-  .quote-author {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
 
-  .quote-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f4a38a, var(--accent));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: white;
-    flex-shrink: 0;
-  }
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
-  .quote-name {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
+/* Notice bar */
+.brand-notice {
+  margin-top: 40px;
+  padding: 14px 16px;
+  background: rgba(7,112,163,0.25);
+  border-left: 3px solid var(--canvas-blue);
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 32px;
+}
 
-  .quote-role {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-  }
+.brand-notice p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+  font-style: italic;
+}
 
-  /* Stats row */
-  .stats-row {
-    display: flex;
-    gap: 0;
-    margin-top: 20px;
-    background: var(--white);
-    border: 1px solid var(--panel-border);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
+.brand-notice strong {
+  color: rgba(255,255,255,0.85);
+  font-style: normal;
+}
 
-  .stat-item {
-    flex: 1;
-    padding: 14px 16px;
-    text-align: center;
-    border-right: 1px solid var(--panel-border);
-  }
+/* Bottom bar */
+.brand-bottom {
+  height: 5px;
+  background: linear-gradient(90deg, var(--canvas-blue) 0%, #6CC0E5 100%);
+  position: relative;
+  z-index: 1;
+}
 
-  .stat-item:last-child {
-    border-right: none;
-  }
+/* ── MAIN CONTENT AREA ── */
+.content-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 60px;
+  background: var(--canvas-bg);
+}
 
-  .stat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--accent);
-    display: block;
-  }
+.form-card {
+  background: var(--canvas-white);
+  border: 1px solid var(--canvas-border);
+  border-radius: 6px;
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
+}
 
-  .stat-label {
-    font-size: 0.70rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-    display: block;
-  }
+.form-card-header {
+  background: var(--canvas-white);
+  border-bottom: 1px solid var(--canvas-border);
+  padding: 22px 28px 18px;
+}
 
-  /* ── RIGHT FORM PANEL ── */
-  .hero-right {
-    width: 460px;
-    flex-shrink: 0;
-    background: var(--white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 56px 48px;
-    position: relative;
-    border-left: 1px solid var(--panel-border);
-    box-shadow: -8px 0 40px rgba(0,0,0,0.04);
-  }
+.form-card-header h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--canvas-text);
+  letter-spacing: -0.01em;
+  margin-bottom: 3px;
+}
 
-  .panel-logo {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-    background: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 14px rgba(181,52,28,0.30);
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-    flex-shrink: 0;
-  }
+.form-card-header p {
+  font-size: 0.82rem;
+  color: var(--canvas-muted);
+  line-height: 1.5;
+}
 
-  .panel-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.65rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    text-align: center;
-    margin-bottom: 6px;
-    letter-spacing: -0.02em;
-  }
+.form-card-body {
+  padding: 24px 28px 28px;
+}
 
-  .panel-subtitle {
-    font-size: 0.83rem;
-    color: var(--text-muted);
-    text-align: center;
-    margin-bottom: 32px;
-    line-height: 1.6;
-  }
+.form-row {
+  margin-bottom: 18px;
+}
 
-  .form-group {
-    width: 100%;
-    margin-bottom: 16px;
-  }
+.form-row label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--canvas-label);
+  margin-bottom: 5px;
+}
 
-  .form-group label {
-    display: block;
-    font-size: 0.76rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 7px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
+.form-row label .required {
+  color: var(--canvas-error);
+  margin-left: 2px;
+}
 
-  .input-wrap {
-    position: relative;
-  }
+.form-control {
+  display: block;
+  width: 100%;
+  height: var(--canvas-input-h);
+  padding: 0 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.88rem;
+  color: var(--canvas-text);
+  background: var(--canvas-white);
+  border: 1px solid var(--canvas-border);
+  border-radius: var(--canvas-radius);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
 
-  .input-icon {
-    position: absolute;
-    left: 13px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    pointer-events: none;
-  }
+.form-control::placeholder {
+  color: #aab0b5;
+}
 
-  .form-control {
-    width: 100%;
-    padding: 11px 14px 11px 38px;
-    background: var(--input-bg);
-    border: 1.5px solid var(--input-border);
-    border-radius: var(--radius);
-    color: var(--text-primary);
-    font-family: 'Figtree', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
+.form-control:focus {
+  border-color: var(--canvas-blue);
+  box-shadow: 0 0 0 2px rgba(7,112,163,0.20);
+}
 
-  .form-control::placeholder {
-    color: #c5bfb8;
-  }
+.form-control:hover:not(:focus) {
+  border-color: #a0aaaf;
+}
 
-  .form-control:focus {
-    border-color: var(--input-focus);
-    box-shadow: 0 0 0 3px rgba(181,52,28,0.10);
-    background: #fff;
-  }
+select.form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B7780'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+  cursor: pointer;
+}
 
-  select.form-control {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a8a29e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 36px;
-    cursor: pointer;
-  }
+select.form-control option {
+  background: var(--canvas-white);
+  color: var(--canvas-text);
+}
 
-  select.form-control option {
-    background: var(--white);
-    color: var(--text-primary);
-  }
+.role-group {
+  display: flex;
+  gap: 8px;
+}
 
-  .forgot-row {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 18px;
-    margin-top: -6px;
-  }
+.role-option {
+  flex: 1;
+  position: relative;
+}
 
-  .forgot-link {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+.role-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-  .forgot-link:hover {
-    color: var(--accent);
-  }
+.role-option label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  border: 1px solid var(--canvas-border);
+  border-radius: var(--canvas-radius);
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 400;
+  color: var(--canvas-muted);
+  background: var(--canvas-white);
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  margin-bottom: 0;
+}
 
-  .btn-submit {
-    width: 100%;
-    padding: 13px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-family: 'Figtree', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-    margin-top: 8px;
-    box-shadow: 0 2px 8px rgba(181,52,28,0.22);
-  }
+.role-option label svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
 
-  .btn-submit:hover {
-    background: var(--accent-hover);
-    box-shadow: 0 6px 20px rgba(181,52,28,0.32);
-    transform: translateY(-1px);
-  }
+.role-option input[type="radio"]:checked + label {
+  border-color: var(--canvas-blue);
+  background: var(--canvas-blue-lt);
+  color: var(--canvas-blue-dk);
+  font-weight: 700;
+}
 
-  .btn-submit:active {
-    transform: scale(0.98) translateY(0);
-  }
+.role-option label:hover {
+  border-color: #a0aaaf;
+  color: var(--canvas-text);
+}
 
-  .divider {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 24px 0;
-  }
+/* Label row with forgot link */
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
 
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--panel-border);
-  }
+.label-row label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--canvas-label);
+  margin-bottom: 0;
+}
 
-  .divider span {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
+.label-row label .required {
+  color: var(--canvas-error);
+  margin-left: 2px;
+}
 
-  .panel-footer {
-    font-size: 0.83rem;
-    color: var(--text-muted);
-    text-align: center;
-    line-height: 1.8;
-  }
+.forgot-link {
+  font-size: 0.78rem;
+  color: var(--canvas-blue);
+  text-decoration: none;
+  font-weight: 400;
+}
 
-  .panel-footer a {
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(181,52,28,0.25);
-    transition: border-color 0.2s;
-  }
+.forgot-link:hover {
+  text-decoration: underline;
+}
 
-  .panel-footer a:hover {
-    border-color: var(--accent);
-  }
+.btn-primary {
+  display: block;
+  width: 100%;
+  height: 40px;
+  background: var(--canvas-blue);
+  color: #fff;
+  border: 1px solid var(--canvas-blue-dk);
+  border-radius: var(--canvas-radius);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+  margin-top: 24px;
+}
 
-  @media (max-width: 820px) {
-    .hero-left { display: none; }
-    .hero-right { width: 100%; padding: 40px 28px; box-shadow: none; }
-  }
+.btn-primary:hover {
+  background: var(--canvas-blue-dk);
+  box-shadow: 0 1px 4px rgba(7,112,163,0.30);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.form-card-footer {
+  border-top: 1px solid var(--canvas-border);
+  padding: 14px 28px;
+  text-align: center;
+  background: #FAFAFA;
+}
+
+.form-card-footer p {
+  font-size: 0.82rem;
+  color: var(--canvas-muted);
+}
+
+.form-card-footer a {
+  color: var(--canvas-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-card-footer a:hover {
+  text-decoration: underline;
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  left: 380px;
+  right: 0;
+  padding: 10px 24px;
+  text-align: center;
+  font-size: 0.72rem;
+  color: #AAB0B5;
+  background: var(--canvas-bg);
+  border-top: 1px solid var(--canvas-border);
+}
+
+@media (max-width: 820px) {
+  .brand-panel { display: none; }
+  .page-footer { left: 0; }
+  .content-area { padding: 32px 20px; }
+}
 
 </style>
-
 </head>
 
 <body>
 
-  <!-- LEFT: hero panel -->
-  <div class="hero-left">
-    <div class="hero-decoration"></div>
-    <div class="hero-inner">
+  <!-- LEFT BRAND PANEL -->
+  <aside class="brand-panel">
+    <div class="brand-top">
 
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Trusted by educators
+      <div class="brand-logo-wrap">
+        <div class="brand-logo-mark">
+          <svg viewBox="0 0 20 20"><path d="M3 3h6a2 2 0 012 2v11a2 2 0 01-2 2H3V3zm14 0h-4a2 2 0 00-2 2v11a2 2 0 002 2h4V3z"/></svg>
+        </div>
+        <span class="brand-logo-name">EduVault</span>
       </div>
 
-      <h2 class="hero-heading">Good to have<br>you <em>back.</em></h2>
+      <h2 class="brand-headline">
+        Welcome back
+        <strong>to your portal.</strong>
+      </h2>
 
-      <p class="hero-body">Sign in to pick up right where you left off. Your resources and progress are waiting.</p>
+      <p class="brand-sub">Sign in to continue where you left off. Your courses, materials, and progress are ready.</p>
 
-      <div class="quote-card">
-        <span class="quote-mark">&ldquo;</span>
-        <p class="quote-text">EduVault has completely changed how I share materials with my students. Everything is organized and accessible in one place.</p>
-        <div class="quote-author">
-          <div class="quote-avatar">MS</div>
-          <div>
-            <div class="quote-name">Maria Santos</div>
-            <div class="quote-role">High School Science Teacher</div>
-          </div>
-        </div>
-      </div>
+      <div class="brand-divider"></div>
 
-      <div class="stats-row">
-        <div class="stat-item">
-          <span class="stat-number">2.4k</span>
-          <span class="stat-label">Students</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">180+</span>
-          <span class="stat-label">Teachers</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">12k</span>
-          <span class="stat-label">Resources</span>
-        </div>
+      
+
+      <div class="brand-notice">
+        <p><strong>First time here?</strong> Ask your teacher for an invitation or create your account at the registration page.</p>
       </div>
 
     </div>
-  </div>
+    <div class="brand-bottom"></div>
+  </aside>
 
-  <!-- RIGHT: form panel -->
-  <div class="hero-right">
+  <!-- MAIN CONTENT -->
+  <main class="content-area">
+    <div class="form-card">
 
-    <div class="panel-logo">EV</div>
+      <div class="form-card-header">
+        <h1>Log in to EduVault</h1>
+        <p>Enter your credentials to access your portal.</p>
+      </div>
 
-    <h1 class="panel-title">Welcome Back</h1>
-    <p class="panel-subtitle">Sign in to your portal to continue.</p>
+      <div class="form-card-body">
+        <form method="POST">
 
-    <form method="POST" style="width:100%;">
+          <div class="form-row">
+            <label for="txtUsername">Username <span class="required">*</span></label>
+            <input
+              type="text"
+              id="txtUsername"
+              name="txtUsername"
+              class="form-control"
+              placeholder="Enter your username"
+              autocomplete="username"
+              required>
+          </div>
 
-      <div class="form-group">
-        <label>Username</label>
-        <div class="input-wrap">
-          <span class="input-icon">👤</span>
+          <div class="form-row">
+            <div class="label-row">
+              <label for="txtPassword">Password <span class="required">*</span></label>
+              <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+            <input
+              type="password"
+              id="txtPassword"
+              name="txtPassword"
+              class="form-control"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required>
+          </div>
+
+          <div class="form-row">
+            <label>Log in as <span class="required">*</span></label>
+            <div class="role-group">
+              <div class="role-option">
+                <input type="radio" id="roleTeacher" name="txtUserType" value="Teacher" checked>
+                <label for="roleTeacher">
+                  <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                  Teacher
+                </label>
+              </div>
+              <div class="role-option">
+                <input type="radio" id="roleStudent" name="txtUserType" value="Student">
+                <label for="roleStudent">
+                  <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  Student
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hidden select for PHP POST compatibility -->
+          <select name="txtUserType" id="txtUserTypeHidden" style="display:none;"></select>
+
           <input
-            type="text"
-            name="txtUsername"
-            class="form-control"
-            placeholder="Enter your username"
-            required>
-        </div>
+            type="submit"
+            name="btnLogin"
+            value="Log In"
+            class="btn-primary">
+
+        </form>
       </div>
 
-      <div class="form-group">
-        <label>Password</label>
-        <div class="input-wrap">
-          <span class="input-icon">🔑</span>
-          <input
-            type="password"
-            name="txtPassword"
-            class="form-control"
-            placeholder="Enter your password"
-            required>
-        </div>
+      <div class="form-card-footer">
+        <p>Don't have an account? <a href="register.php">Create one now</a></p>
       </div>
 
-      <div class="forgot-row">
-        <a href="#" class="forgot-link">Forgot password?</a>
-      </div>
+    </div>
+  </main>
 
-      <div class="form-group">
-        <label>Login As</label>
-        <div class="input-wrap">
-          <span class="input-icon">🎓</span>
-          <select name="txtUserType" class="form-control">
-            <option value="Teacher">Teacher</option>
-            <option value="Student">Student</option>
-          </select>
-        </div>
-      </div>
+  <footer class="page-footer">
+    &copy; <?php echo date('Y'); ?> EduVault &mdash; All rights reserved.
+  </footer>
 
-      <input
-        type="submit"
-        name="btnLogin"
-        value="Sign In →"
-        class="btn-submit">
-
-    </form>
-
-    <div class="divider"><span>or</span></div>
-
-    <p class="panel-footer">
-      Don't have an account?
-      <a href="register.php">Create one here</a>
-    </p>
-
-  </div>
+<script>
+document.querySelectorAll('input[name="txtUserType"]').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+    document.getElementById('txtUserTypeHidden').value = this.value;
+  });
+});
+document.getElementById('txtUserTypeHidden').value = document.querySelector('input[name="txtUserType"]:checked').value;
+</script>
 
 </body>
-
 </html>
