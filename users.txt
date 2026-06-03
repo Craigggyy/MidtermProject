@@ -13,6 +13,17 @@ Teacher
 f
 f
 Student
+<<<<<<< HEAD
 Valdoz
 1
+=======
+ezrael
+buencamino
+Teacher
+admin
+admin123
+Teacher
+bb
+bb
+>>>>>>> ccc1de740cc8e1c9d831574e08e4920c6d2194a7
 Teacher
