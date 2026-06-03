@@ -31,7 +31,7 @@ href="css/style.css">
 <div class="navbar">
 
 <div class="logo">
-EduVault
+Scholara
 </div>
 
 <ul>

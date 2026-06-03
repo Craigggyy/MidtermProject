@@ -30,12 +30,12 @@ href="css/style.css">
 
 </head>
 
-<body>
+<body class="has-bg bg-1">
 
 <div class="navbar">
 
 <div class="logo">
-EduVault
+Scholara
 </div>
 
 <ul>
@@ -55,6 +55,66 @@ EduVault
 </ul>
 
 </div>
+
+
+<div class="carousel-container">
+    <div class="carousel-slides">
+        <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
+        <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
+        <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
+    </div>
+    <button class="carousel-prev" onclick="changeSlide(-1)">❮</button>
+    <button class="carousel-next" onclick="changeSlide(1)">❯</button>
+    <div class="carousel-dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+</div>
+
+<script>
+let slideIndex = 1;
+let slideTimer;
+
+function changeSlide(n) {
+    clearTimeout(slideTimer);
+    showSlide(slideIndex += n);
+    autoSlide();
+}
+
+function currentSlide(n) {
+    clearTimeout(slideTimer);
+    showSlide(slideIndex = n);
+    autoSlide();
+}
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+  
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+  
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+  
+    slides[slideIndex - 1].classList.add('active');
+    dots[slideIndex - 1].classList.add('active');
+}
+
+function autoSlide() {
+    slideTimer = setTimeout(() => {
+        slideIndex++;
+        showSlide(slideIndex);
+        autoSlide();
+    }, 5000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showSlide(slideIndex);
+    autoSlide();
+});
+</script>
 
 <div class="container">
 
@@ -99,7 +159,7 @@ Browse Modules
 
 <div class="footer">
 
-<strong>EduVault</strong> &mdash; Student Portal &copy; 2026
+<strong>Scholara</strong> &mdash; Student Portal &copy; 2026
 
 </div>
 

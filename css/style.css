@@ -29,12 +29,14 @@
 html { scroll-behavior: smooth; }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background: var(--gray-50);
   color: var(--gray-900);
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  min-height: 100vh;
 }
 
 body.has-bg {
@@ -47,7 +49,7 @@ body.has-bg::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: url('../images/bg_scholara_2.jpg') center/cover no-repeat;
+  background: url('../images/bg_scholara_4.jpg') center/cover no-repeat;
   filter: blur(6px) brightness(0.55);
   transform: scale(1.02);
   z-index: -9999;
@@ -60,6 +62,51 @@ body.has-bg::after {
   inset: 0;
   background: rgba(16, 18, 23, 0.18);
   z-index: -1;
+}
+
+/* specific background variants for pages */
+body.has-bg.bg-1::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('../images/bg_scholara_1.jpg') center/cover no-repeat;
+  filter: blur(6px) brightness(0.55);
+  transform: scale(1.02);
+  z-index: -9999;
+  pointer-events: none;
+}
+
+body.has-bg.bg-2::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('../images/bg_scholara_2.jpg') center/cover no-repeat;
+  filter: blur(6px) brightness(0.55);
+  transform: scale(1.02);
+  z-index: -9999;
+  pointer-events: none;
+}
+
+body.has-bg.bg-3::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('../images/bg_scholara_3.jpg') center/cover no-repeat;
+  filter: blur(6px) brightness(0.55);
+  transform: scale(1.02);
+  z-index: -9999;
+  pointer-events: none;
+}
+
+body.has-bg.bg-4::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('../images/bg_scholara_4.jpg') center/cover no-repeat;
+  filter: blur(6px) brightness(0.55);
+  transform: scale(1.02);
+  z-index: -9999;
+  pointer-events: none;
 }
 
 /* ─── NAVBAR ─── */
@@ -285,6 +332,15 @@ body.has-bg::after {
   align-items: center;
   padding: 60px 80px;
   background: var(--white);
+}
+
+/* when a page enables the background image, make hero panels transparent */
+body.has-bg .hero {
+  background: transparent;
+}
+
+body.has-bg .hero-right {
+  background: transparent;
 }
 
 .hero-box {
@@ -626,6 +682,7 @@ input[type="file"]::file-selector-button:hover {
 
 /* ─── CONTAINER ─── */
 .container {
+  flex: 1;
   width: 88%;
   max-width: 1160px;
   margin: 0 auto;
@@ -898,13 +955,20 @@ input[type="file"]::file-selector-button:hover {
 
 /* ─── FOOTER ─── */
 .footer {
-  background: var(--gray-900);
-  color: rgba(255,255,255,0.5);
+  background: rgba(17, 19, 26, 0.88);
+  color: rgba(255,255,255,0.8);
   text-align: center;
   padding: 24px 40px;
   font-size: 0.82rem;
   letter-spacing: 0.3px;
-  margin-top: 0;
+  margin-top: 32px;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+body:not(.has-bg) .footer {
+  background: var(--gray-900);
 }
 
 .footer strong {
