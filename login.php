@@ -2,43 +2,22 @@
 
 session_start();
 
-function textreader(
-$inputname,
-$inputpassword,
-$inputtype)
+function textreader($inputname, $inputpassword)
 {
     $textsource = "users.txt";
 
-    if(file_exists($textsource))
+    if (file_exists($textsource))
     {
-        $textcontent =
-        file(
-        $textsource,
-        FILE_IGNORE_NEW_LINES);
+        $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
 
-        foreach(
-        $textcontent
-        as $index => $linetext)
+        foreach ($textcontent as $index => $linetext)
         {
-            if($inputname == $linetext)
+            if ($inputname == $linetext)
             {
-                if(
-                $inputpassword
-                ==
-                $textcontent[$index+1]
-                &&
-                $inputtype
-                ==
-                $textcontent[$index+2]
-                )
+                if ($inputpassword == $textcontent[$index + 1])
                 {
-                    $_SESSION['sesUser']
-                    =
-                    $textcontent[$index];
-
-                    $_SESSION['sesUserType']
-                    =
-                    $textcontent[$index+2];
+                    $_SESSION['sesUser']     = $textcontent[$index];
+                    $_SESSION['sesUserType'] = $textcontent[$index + 2];
 
                     return true;
                 }
@@ -49,48 +28,30 @@ $inputtype)
     return false;
 }
 
-if(isset($_POST['btnLogin']))
+if (isset($_POST['btnLogin']))
 {
-    $username =
-    $_POST['txtUsername'];
+    $username = $_POST['txtUsername'];
+    $password = $_POST['txtPassword'];
 
-    $password =
-    $_POST['txtPassword'];
+    $found = textreader($username, $password);
 
-    $usertype =
-    $_POST['txtUserType'];
-
-    $found =
-    textreader(
-    $username,
-    $password,
-    $usertype);
-
-    if($found == false)
+    if ($found == false)
     {
         die(
-        "<script>
-        alert('Invalid Account');
-        window.location='login.php';
-        </script>");
+            "<script>
+            alert('Invalid Account');
+            window.location='login.php';
+            </script>"
+        );
     }
 
-    if(
-    $_SESSION['sesUserType']
-    ==
-    "Teacher")
+    if ($_SESSION['sesUserType'] == "Teacher")
     {
-        echo "<meta
-        http-equiv='refresh'
-        content='0;
-        url=home.php'>";
+        echo "<meta http-equiv='refresh' content='0; url=home.php'>";
     }
     else
     {
-        echo "<meta
-        http-equiv='refresh'
-        content='0;
-        url=studenthome.php'>";
+        echo "<meta http-equiv='refresh' content='0; url=studenthome.php'>";
     }
 }
 
@@ -100,103 +61,82 @@ if(isset($_POST['btnLogin']))
 
 <head>
 
-<title>Scholara — Login</title>
+    <title>Scholara — Login</title>
 
-<link rel="stylesheet"
-href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body class="has-bg">
 
-<div class="hero">
+    <div class="hero">
 
-<div class="hero-left">
+        <div class="hero-left">
 
-<div class="hero-left-brand">Scholara</div>
+            <div class="hero-left-brand">Scholara</div>
 
-<p class="hero-left-sub">Your centralized platform for learning modules. Teachers upload. Students discover. Education simplified.</p>
+            <p class="hero-left-sub">Your centralized platform for learning modules. Teachers upload. Students discover. Education simplified.</p>
 
-<div class="hero-decor">
-<span></span><span></span><span></span>
-</div>
+            <div class="hero-decor">
+                <span></span><span></span><span></span>
+            </div>
 
-</div>
+        </div>
 
-<div class="hero-right">
+        <div class="hero-right">
 
-<div class="hero-box">
+            <div class="hero-box">
 
-<h1>Welcome Back</h1>
+                <h1>Welcome Back</h1>
 
-<p>Sign in to your portal to continue.</p>
+                <p>Sign in to your portal to continue.</p>
 
-<form method="POST">
+                <form method="POST">
 
-<div class="form-group">
+                    <div class="form-group">
 
-<label>Username</label>
+                        <label>Username</label>
 
-<input
-type="text"
-name="txtUsername"
-class="form-control"
-placeholder="Enter your username"
-required>
+                        <input
+                            type="text"
+                            name="txtUsername"
+                            class="form-control"
+                            placeholder="Enter your username"
+                            required>
 
-</div>
+                    </div>
 
-<div class="form-group">
+                    <div class="form-group">
 
-<label>Password</label>
+                        <label>Password</label>
 
-<input
-type="password"
-name="txtPassword"
-class="form-control"
-placeholder="Enter your password"
-required>
+                        <input
+                            type="password"
+                            name="txtPassword"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            required>
 
-</div>
+                    </div>
 
-<div class="form-group">
+                    <input
+                        type="submit"
+                        name="btnLogin"
+                        value="Sign In"
+                        class="btn btn-full">
 
-<label>Login As</label>
+                </form>
 
-<select
-name="txtUserType"
-class="form-control">
+                <p style="text-align:center; margin-top:22px; font-size:0.88rem; color:#888;">
+                    Don't have an account?
+                    <a href="register.php" style="color:#C0392B; font-weight:600;">Create one</a>
+                </p>
 
-<option value="Teacher">
-Teacher
-</option>
+            </div>
 
-<option value="Student">
-Student
-</option>
+        </div>
 
-</select>
-
-</div>
-
-<input
-type="submit"
-name="btnLogin"
-value="Sign In"
-class="btn btn-full">
-
-</form>
-
-<p style="text-align:center; margin-top:22px; font-size:0.88rem; color:#888;">
-Don't have an account?
-<a href="register.php" style="color:#C0392B; font-weight:600;">Create one</a>
-</p>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </body>
 

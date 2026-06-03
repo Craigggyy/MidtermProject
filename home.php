@@ -2,16 +2,14 @@
 
 session_start();
 
-if(
-!isset(
-$_SESSION['sesUser']
-))
+if (!isset($_SESSION['sesUser']))
 {
     die(
-    "<script>
-    alert('Please Login First');
-    window.location='login.php';
-    </script>");
+        "<script>
+        alert('Please Login First');
+        window.location='login.php';
+        </script>"
+    );
 }
 
 ?>
@@ -20,229 +18,184 @@ $_SESSION['sesUser']
 
 <head>
 
-<title>
-Dashboard
-</title>
+    <title>Dashboard</title>
 
-<link
-rel="stylesheet"
-href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body class="has-bg">
 
-<div class="navbar">
+    <div class="navbar">
 
-<div class="logo">
-Scholara
-</div>
+        <div class="logo">Scholara</div>
 
-<ul>
+        <ul>
 
-<li>
-<a href="home.php">Home</a>
-</li>
+            <li>
+                <a href="home.php">Home</a>
+            </li>
 
-<li>
-<a href="uploadmodule.php">Upload Module</a>
-</li>
+            <li>
+                <a href="uploadmodule.php">Upload Module</a>
+            </li>
 
-<li>
-<a href="searchmodule.php">Browse Modules</a>
-</li>
+            <li>
+                <a href="searchmodule.php">Browse Modules</a>
+            </li>
 
-<li>
-<a href="logout.php">Logout</a>
-</li>
+            <li>
+                <a href="logout.php">Logout</a>
+            </li>
 
-</ul>
+        </ul>
 
-</div>
+    </div>
 
-<div class="carousel-container">
-  <div class="carousel-slides">
-    <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
-    <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
-    <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
-  </div>
-  <button class="carousel-prev" onclick="changeSlide(-1)">❮</button>
-  <button class="carousel-next" onclick="changeSlide(1)">❯</button>
-  <div class="carousel-dots">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-  </div>
-</div>
+    <div class="carousel-container">
+        <div class="carousel-slides">
+            <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
+            <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
+            <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
+        </div>
+        <button class="carousel-prev" onclick="changeSlide(-1)">❮</button>
+        <button class="carousel-next" onclick="changeSlide(1)">❯</button>
+        <div class="carousel-dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
 
-<script>
-let slideIndex = 1;
-let slideTimer;
+    <script>
+    let slideIndex = 1;
+    let slideTimer;
 
-function changeSlide(n) {
-  clearTimeout(slideTimer);
-  showSlide(slideIndex += n);
-  autoSlide();
-}
+    function changeSlide(n) {
+        clearTimeout(slideTimer);
+        showSlide(slideIndex += n);
+        autoSlide();
+    }
 
-function currentSlide(n) {
-  clearTimeout(slideTimer);
-  showSlide(slideIndex = n);
-  autoSlide();
-}
+    function currentSlide(n) {
+        clearTimeout(slideTimer);
+        showSlide(slideIndex = n);
+        autoSlide();
+    }
 
-function showSlide(n) {
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
-  
-  if (n > slides.length) slideIndex = 1;
-  if (n < 1) slideIndex = slides.length;
-  
-  slides.forEach(slide => slide.classList.remove('active'));
-  dots.forEach(dot => dot.classList.remove('active'));
-  
-  slides[slideIndex - 1].classList.add('active');
-  dots[slideIndex - 1].classList.add('active');
-}
+    function showSlide(n) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots   = document.querySelectorAll('.dot');
 
-function autoSlide() {
-  slideTimer = setTimeout(() => {
-    slideIndex++;
-    showSlide(slideIndex);
-    autoSlide();
-  }, 5000);
-}
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
 
-document.addEventListener('DOMContentLoaded', () => {
-  showSlide(slideIndex);
-  autoSlide();
-});
-</script>
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
 
-<div class="container">
+        slides[slideIndex - 1].classList.add('active');
+        dots[slideIndex - 1].classList.add('active');
+    }
 
-<div class="card card-welcome">
+    function autoSlide() {
+        slideTimer = setTimeout(() => {
+            slideIndex++;
+            showSlide(slideIndex);
+            autoSlide();
+        }, 5000);
+    }
 
-<div class="card-welcome-text">
+    document.addEventListener('DOMContentLoaded', () => {
+        showSlide(slideIndex);
+        autoSlide();
+    });
+    </script>
 
-<h1>
-Welcome back,
-<?php
-echo
-$_SESSION['sesUser'];
-?>
-</h1>
+    <div class="container">
 
-<p>
-Manage learning modules, upload materials and help students access educational resources efficiently.
-</p>
+        <div class="card card-welcome">
 
-</div>
+            <div class="card-welcome-text">
 
-<div class="card-welcome-badge">
-<span>Logged in as</span>
-<strong>Teacher</strong>
-</div>
+                <h1>
+                    Welcome back,
+                    <?php echo $_SESSION['sesUser']; ?>
+                </h1>
 
-</div>
+                <p>
+                    Manage learning modules, upload materials and help students access educational resources efficiently.
+                </p>
 
-<div class="dashboard">
+            </div>
 
-<div
-class="dashboard-card">
+            <div class="card-welcome-badge">
+                <span>Logged in as</span>
+                <strong>Teacher</strong>
+            </div>
 
-<span class="dashboard-card-icon">📚</span>
+        </div>
 
-<h3>
-Upload Modules
-</h3>
+        <div class="dashboard">
 
-<p>
-Add learning materials for your students to access and download.
-</p>
+            <div class="dashboard-card">
 
-<a
-href="uploadmodule.php">
+                <span class="dashboard-card-icon">📚</span>
 
-<button
-class="btn">
-Open
-</button>
+                <h3>Upload Modules</h3>
 
-</a>
+                <p>Add learning materials for your students to access and download.</p>
 
-</div>
+                <a href="uploadmodule.php">
+                    <button class="btn">Open</button>
+                </a>
 
-<div
-class="dashboard-card">
+            </div>
 
-<span class="dashboard-card-icon">🔍</span>
+            <div class="dashboard-card">
 
-<h3>
-Browse Modules
-</h3>
+                <span class="dashboard-card-icon">🔍</span>
 
-<p>
-Find and manage all uploaded learning resources in one place.
-</p>
+                <h3>Browse Modules</h3>
 
-<a
-href="searchmodule.php">
+                <p>Find and manage all uploaded learning resources in one place.</p>
 
-<button
-class="btn">
-Open
-</button>
+                <a href="searchmodule.php">
+                    <button class="btn">Open</button>
+                </a>
 
-</a>
+            </div>
 
-</div>
+            <div class="dashboard-card">
 
-<div
-class="dashboard-card">
+                <span class="dashboard-card-icon">👨‍🏫</span>
 
-<span class="dashboard-card-icon">👨‍🏫</span>
+                <h3>Teacher Account</h3>
 
-<h3>
-Teacher Account
-</h3>
+                <p>Currently logged in to your teacher portal.</p>
 
-<p>
-Currently logged in to your teacher portal.
-</p>
+                <b><?php echo $_SESSION['sesUser']; ?></b>
 
-<b>
-<?php
+            </div>
 
-echo
-$_SESSION['sesUser'];
+        </div>
 
-?>
-</b>
+        <div class="card">
 
-</div>
+            <h2>About Scholara</h2>
 
-</div>
+            <p>
+                Scholara is an E-Learning Module Distribution System that allows teachers to upload modules while students can search and download learning materials seamlessly.
+            </p>
 
-<div class="card">
+        </div>
 
-<h2>
-About Scholara
-</h2>
+    </div>
 
-<p>
-Scholara is an E-Learning Module Distribution System that allows teachers to upload modules while students can search and download learning materials seamlessly.
-</p>
+    <div class="footer">
 
-</div>
+        <strong>Scholara</strong> &mdash; E-Learning Module Distribution System &copy; 2026
 
-</div>
-
-<div class="footer">
-
-<strong>Scholara</strong> &mdash; E-Learning Module Distribution System &copy; 2026
-
-</div>
+    </div>
 
 </body>
 
