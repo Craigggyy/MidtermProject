@@ -575,7 +575,6 @@ select.form-control option {
           <div class="form-row">
             <div class="label-row">
               <label for="txtPassword">Password <span class="required">*</span></label>
-              <a href="#" class="forgot-link">Forgot password?</a>
             </div>
             <input
               type="password"
