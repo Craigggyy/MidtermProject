@@ -202,6 +202,67 @@ body.has-bg.bg-4::before {
   filter: brightness(1.1);
 }
 
+/* Active nav link */
+.navbar ul li a.nav-active {
+  color: var(--red);
+  background: var(--red-pale);
+  border-color: rgba(192,57,43,0.25);
+  font-weight: 700;
+}
+
+.navbar ul li a.nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: var(--red);
+  border-radius: 2px;
+}
+
+/* Override last-child (Logout) active state — shouldn't look active */
+.navbar ul li:last-child a.nav-active {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: var(--white);
+  border-color: var(--red-dark);
+}
+
+/* ─── SUBJECT SECTIONS ─── */
+.subject-section {
+  margin-bottom: 36px;
+}
+
+.subject-section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--red);
+}
+
+.subject-section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+
+.subject-section-header .subject-count {
+  background: var(--red-pale);
+  color: var(--red);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(192,57,43,0.2);
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 0 16px;

@@ -24,16 +24,16 @@ if (!isset($_SESSION['sesUser']))
 
 </head>
 
-<body class="has-bg bg-1">
+<body class="has-bg">
 
     <div class="navbar">
 
-        <div class="logo">University</div>
+        <div class="logo">Scholara</div>
 
         <ul>
 
             <li>
-                <a href="studenthome.php">Home</a>
+                <a href="studenthome.php" class="nav-active">Home</a>
             </li>
 
             <li>
@@ -141,7 +141,7 @@ if (!isset($_SESSION['sesUser']))
 
     <div class="footer">
 
-        <strong>University</strong> &mdash; Student Portal &copy; 2026
+        <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
 
     </div>
 

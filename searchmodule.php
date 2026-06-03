@@ -88,15 +88,20 @@ if (isset($_POST['btnDelete']) && isset($_SESSION['sesUserType']) && $_SESSION['
         <ul>
 
             <li>
-                <a href="home.php">Home</a>
+                <?php
+                $homeLink = (isset($_SESSION['sesUserType']) && $_SESSION['sesUserType'] == "Teacher") ? "home.php" : "studenthome.php";
+                ?>
+                <a href="<?php echo $homeLink; ?>">Home</a>
             </li>
 
+            <?php if (isset($_SESSION['sesUserType']) && $_SESSION['sesUserType'] == "Teacher"): ?>
             <li>
                 <a href="uploadmodule.php">Upload</a>
             </li>
+            <?php endif; ?>
 
             <li>
-                <a href="searchmodule.php">Modules</a>
+                <a href="searchmodule.php" class="nav-active">Modules</a>
             </li>
 
             <li>
@@ -111,7 +116,7 @@ if (isset($_POST['btnDelete']) && isset($_SESSION['sesUserType']) && $_SESSION['
 
         <div class="page-header">
             <div>
-                <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:#1A1A1A;">Learning Materials</h1>
+                <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:#FFFFFF;">Learning Materials</h1>
                 <p style="color:#888; font-size:0.88rem; margin-top:4px;">Browse and download modules shared by teachers</p>
             </div>
         </div>
@@ -143,8 +148,6 @@ if (isset($_POST['btnDelete']) && isset($_SESSION['sesUserType']) && $_SESSION['
 
         </div>
 
-        <div class="module-grid">
-
         <?php
 
         $textsource = "modules.txt";
@@ -153,12 +156,15 @@ if (isset($_POST['btnDelete']) && isset($_SESSION['sesUserType']) && $_SESSION['
         {
             $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
 
-            $found_any = false;
-
             $isTeacher = isset($_SESSION['sesUserType']) && $_SESSION['sesUserType'] == "Teacher";
+
+            // ── Build grouped structure: category => [ module, ... ] ──────────
+            $grouped = [];
 
             for ($i = 0; $i < count($textcontent); $i = $i + 5)
             {
+                if (!isset($textcontent[$i])) continue;
+
                 $subject  = $textcontent[$i];
                 $category = $textcontent[$i + 1];
                 $filetype = $textcontent[$i + 2];
@@ -166,84 +172,109 @@ if (isset($_POST['btnDelete']) && isset($_SESSION['sesUserType']) && $_SESSION['
                 $status   = isset($textcontent[$i + 4]) ? $textcontent[$i + 4] : "published";
 
                 // Students only see published modules; teachers see all
-                if (!$isTeacher && $status != "published")
-                {
-                    continue;
-                }
+                if (!$isTeacher && $status != "published") continue;
 
-                if ($search == "" || stripos($subject, $search) !== false)
-                {
-                    $found_any = true;
+                // Apply search filter on subject or category
+                if ($search != "" && stripos($subject, $search) === false && stripos($category, $search) === false) continue;
+
+                if (!isset($grouped[$category])) $grouped[$category] = [];
+
+                $grouped[$category][] = [
+                    'subject'  => $subject,
+                    'category' => $category,
+                    'filetype' => $filetype,
+                    'filepath' => $filepath,
+                    'status'   => $status,
+                    'index'    => $i,
+                ];
+            }
+
+            if (empty($grouped))
+            {
+                echo '<div class="empty-state"><p>No modules found. Try a different search term.</p></div>';
+            }
+            else
+            {
+                ksort($grouped); // alphabetical category order
+
+                foreach ($grouped as $category => $modules):
         ?>
 
-            <div class="module-card <?php echo ($status == 'unpublished') ? 'module-card-unpublished' : ''; ?>">
+        <div class="subject-section">
 
-                <?php if ($isTeacher && $status == "unpublished"): ?>
-                <span class="module-status-badge">Unpublished</span>
-                <?php endif; ?>
+            <div class="subject-section-header">
+                <h2><?php echo htmlspecialchars($category); ?></h2>
+                <span class="subject-count"><?php echo count($modules); ?> module<?php echo count($modules) != 1 ? 's' : ''; ?></span>
+            </div>
 
-                <span class="module-card-type">
-                    <?php echo $filetype; ?>
-                </span>
+            <div class="module-grid">
 
-                <h3><?php echo $subject; ?></h3>
+            <?php foreach ($modules as $mod): ?>
 
-                <p>
-                    <b style="color:#444; font-weight:600;">Category:</b>
-                    <?php echo $category; ?>
-                </p>
+                <div class="module-card <?php echo ($mod['status'] == 'unpublished') ? 'module-card-unpublished' : ''; ?>">
 
-                <div class="module-card-spacer"></div>
+                    <?php if ($isTeacher && $mod['status'] == "unpublished"): ?>
+                    <span class="module-status-badge">Unpublished</span>
+                    <?php endif; ?>
 
-                <div class="module-card-footer">
+                    <span class="module-card-type">
+                        <?php echo htmlspecialchars($mod['filetype']); ?>
+                    </span>
 
-                    <a
-                        class="download-btn"
-                        href="download.php?file=<?php echo $filepath; ?>">
-                        Download Module
-                    </a>
+                    <h3><?php echo htmlspecialchars($mod['subject']); ?></h3>
 
-                    <?php if ($isTeacher): ?>
+                    <div class="module-card-spacer"></div>
 
-                    <div class="teacher-actions">
+                    <div class="module-card-footer">
 
-                        <?php if ($status == "published"): ?>
+                        <a
+                            class="download-btn"
+                            href="download.php?file=<?php echo htmlspecialchars($mod['filepath']); ?>">
+                            Download Module
+                        </a>
 
-                        <form method="POST" style="display:inline;">
-                            <input type="hidden" name="moduleIndex" value="<?php echo $i; ?>">
-                            <input type="submit" name="btnUnpublish" value="Unpublish" class="btn-unpublish">
-                        </form>
+                        <?php if ($isTeacher): ?>
 
-                        <?php else: ?>
+                        <div class="teacher-actions">
 
-                        <form method="POST" style="display:inline;">
-                            <input type="hidden" name="moduleIndex" value="<?php echo $i; ?>">
-                            <input type="submit" name="btnPublish" value="Publish" class="btn-publish">
-                        </form>
+                            <?php if ($mod['status'] == "published"): ?>
+
+                            <form method="POST" style="display:inline;">
+                                <input type="hidden" name="moduleIndex" value="<?php echo $mod['index']; ?>">
+                                <input type="submit" name="btnUnpublish" value="Unpublish" class="btn-unpublish">
+                            </form>
+
+                            <?php else: ?>
+
+                            <form method="POST" style="display:inline;">
+                                <input type="hidden" name="moduleIndex" value="<?php echo $mod['index']; ?>">
+                                <input type="submit" name="btnPublish" value="Publish" class="btn-publish">
+                            </form>
+
+                            <?php endif; ?>
+
+                            <form method="POST" style="display:inline;" onsubmit="return confirm('Permanently DELETE this module and its file? This cannot be undone.');">
+                                <input type="hidden" name="moduleIndex" value="<?php echo $mod['index']; ?>">
+                                <input type="submit" name="btnDelete" value="Delete" class="btn-delete">
+                            </form>
+
+                        </div>
 
                         <?php endif; ?>
 
-                        <form method="POST" style="display:inline;" onsubmit="return confirm('Permanently DELETE this module and its file? This cannot be undone.');">
-                            <input type="hidden" name="moduleIndex" value="<?php echo $i; ?>">
-                            <input type="submit" name="btnDelete" value="Delete" class="btn-delete">
-                        </form>
-
                     </div>
-
-                    <?php endif; ?>
 
                 </div>
 
+            <?php endforeach; ?>
+
             </div>
+
+        </div>
 
         <?php
 
-                }
-            }
-
-            if (!$found_any)
-            {
-                echo '<div class="empty-state"><p>No modules found. Try a different search term.</p></div>';
+                endforeach;
             }
         }
         else
@@ -253,13 +284,11 @@ if (isset($_POST['btnDelete']) && isset($_SESSION['sesUserType']) && $_SESSION['
 
         ?>
 
-        </div>
-
     </div>
 
     <div class="footer">
 
-        <strong>EduVault</strong> &mdash; Learning Materials Library &copy; 2026
+        <strong>Scholara</strong> &mdash; Learning Materials Library &copy; 2026
 
     </div>
 
