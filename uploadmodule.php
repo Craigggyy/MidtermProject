@@ -43,6 +43,7 @@ function uploadmodule()
         fwrite($file, $category . "\n");
         fwrite($file, strtoupper($filetype) . "\n");
         fwrite($file, $targetFile . "\n");
+        fwrite($file, "published" . "\n");
 
         fclose($file);
 

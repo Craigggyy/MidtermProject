@@ -28,7 +28,7 @@ if (!isset($_SESSION['sesUser']))
 
     <div class="navbar">
 
-        <div class="logo">Scholara</div>
+        <div class="logo">University</div>
 
         <ul>
 
@@ -141,7 +141,7 @@ if (!isset($_SESSION['sesUser']))
 
     <div class="footer">
 
-        <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
+        <strong>University</strong> &mdash; Student Portal &copy; 2026
 
     </div>
 
