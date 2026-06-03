@@ -54,8 +54,6 @@ if (!isset($_SESSION['sesUser']))
             <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
             <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
         </div>
-        <button class="carousel-prev" onclick="changeSlide(-1)">❮</button>
-        <button class="carousel-next" onclick="changeSlide(1)">❯</button>
         <div class="carousel-dots">
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
