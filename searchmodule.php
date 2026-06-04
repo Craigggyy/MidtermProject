@@ -22,8 +22,37 @@
             }
         }
 
+<<<<<<< HEAD
         file_put_contents($textsource, $newcontent);
         echo "<script>alert('Module unpublished.'); window.location='searchmodule.php';</script>";
+=======
+            <li><a href="searchmodule.php" class="nav-active">Modules</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </div>
+        <!-- //ai -->
+    <div class="carousel-container">
+        <div class="carousel-slides">
+            <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
+            <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
+            <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
+        </div>
+        <div class="carousel-dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+
+    <script>
+    let slideIndex = 1;
+    let slideTimer;
+
+    function changeSlide(n) {
+        clearTimeout(slideTimer);
+        showSlide(slideIndex += n);
+        autoSlide();
+>>>>>>> 0b283ed5cddccc8711e6114429d996500d6400c0
     }
 
     if (isset($_POST['btnPublish'])) {
@@ -258,9 +287,13 @@
                         $filepath = $textcontent[$index + 3];
                         $status = $textcontent[$index + 4];
 
+<<<<<<< HEAD
                         if ($_SESSION['sesUserType'] != "Teacher" && $status != "published") {
                             continue;
                         }
+=======
+    
+>>>>>>> 0b283ed5cddccc8711e6114429d996500d6400c0
 
                         if ($search != "" && $search != $subject && $search != $category) {
                             continue;

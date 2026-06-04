@@ -24,7 +24,7 @@ if (!isset($_SESSION['sesUser']))
 
 </head>
 
-<body class="has-bg">
+<body class="has-bg student-page">
 
     <div class="navbar">
 
@@ -36,9 +36,15 @@ if (!isset($_SESSION['sesUser']))
                 <a href="studenthome.php" class="nav-active">Home</a>
             </li>
 
+            
+
             <li>
-                <a href="searchmodule.php">Browse Modules</a>
+                <a href="searchmodule.php">Modules</a>
             </li>
+
+            <li style="visibility:hidden;">
+        <a href="#">Upload</a>
+        </li>
 
             <li>
                 <a href="logout.php">Logout</a>
