@@ -162,9 +162,26 @@ body.has-bg.bg-4::before {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+
+  
+}
+.navbar ul li:not(:last-child) {
+    transform: translateX(200px);
+}
+
+.navbar ul li:first-child {
   margin-left: auto;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+}
+
+.navbar ul li:nth-child(3) {
+  margin-right: auto;
+}
+
+.navbar ul li:last-child {
+  margin-left: auto;
 }
 
 .navbar ul li a {
