@@ -1,31 +1,112 @@
-    <?php
+<?php
 
-    session_start();
+session_start();
 
-    $search = "";
+$search = "";
 
-    if (isset($_POST['btnSearch'])) {
-        $search = $_POST['txtSearch'];
+if (isset($_POST['btnSearch'])) {
+    $search = $_POST['txtSearch'];
+}
+
+if (isset($_POST['btnUnpublish'])) {
+    $modIndex = $_POST['moduleIndex'];
+    $textsource = "modules.txt";
+    $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
+    $newcontent = "";
+
+    foreach ($textcontent as $index => $linetext) {
+        if ($index == $modIndex + 4) {
+            $newcontent .= "unpublished\n";
+        } else {
+            $newcontent .= $linetext . "\n";
+        }
     }
 
-    if (isset($_POST['btnUnpublish'])) {
-        $modIndex = $_POST['moduleIndex'];
-        $textsource = "modules.txt";
-        $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
-        $newcontent = "";
+    file_put_contents($textsource, $newcontent);
+    echo "<script>alert('Module unpublished.'); window.location='searchmodule.php';</script>";
+}
 
-        foreach ($textcontent as $index => $linetext) {
-            if ($index == $modIndex + 4) {
-                $newcontent .= "unpublished\n";
-            } else {
-                $newcontent .= $linetext . "\n";
-            }
+if (isset($_POST['btnPublish'])) {
+    $modIndex = $_POST['moduleIndex'];
+    $textsource = "modules.txt";
+    $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
+    $newcontent = "";
+
+    foreach ($textcontent as $index => $linetext) {
+        if ($index == $modIndex + 4) {
+            $newcontent .= "published\n";
+        } else {
+            $newcontent .= $linetext . "\n";
+        }
+    }
+
+    file_put_contents($textsource, $newcontent);
+    echo "<script>alert('Module published.'); window.location='searchmodule.php';</script>";
+}
+
+if (isset($_POST['btnDelete'])) {
+
+    $modIndex = $_POST['moduleIndex'];
+    $textsource = "modules.txt";
+    $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
+
+    $filepath = $textcontent[$modIndex + 3];
+
+    if (file_exists($filepath)) {
+        unlink($filepath);
+    }
+
+    $newcontent = "";
+
+    foreach ($textcontent as $index => $linetext) {
+
+        if ($index >= $modIndex && $index <= $modIndex + 4) {
+        } else {
+            $newcontent .= $linetext . "\n";
         }
 
-<<<<<<< HEAD
-        file_put_contents($textsource, $newcontent);
-        echo "<script>alert('Module unpublished.'); window.location='searchmodule.php';</script>";
-=======
+    }
+
+    file_put_contents($textsource, $newcontent);
+
+    echo "
+    <script>
+        alert('Module and file deleted successfully.');
+        window.location='searchmodule.php';
+    </script>";
+}
+
+?>
+
+<html>
+
+<head>
+    <title>Learning Materials</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="has-bg">
+
+    <div class="navbar">
+        <div class="logo">Scholara</div>
+
+        <ul>
+            <li>
+                <?php
+                if ($_SESSION['sesUserType'] == "Teacher") {
+                    echo "<a href='home.php'>Home</a>";
+                } else {
+                    echo "<a href='studenthome.php'>Home</a>";
+                }
+                ?>
+            </li>
+
+            <?php
+            if ($_SESSION['sesUserType'] == "Teacher") {
+                echo "<li><a href='uploadmodule.php'>Upload</a></li>";
+            }
+            ?>
+
             <li><a href="searchmodule.php" class="nav-active">Modules</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
@@ -52,356 +133,242 @@
         clearTimeout(slideTimer);
         showSlide(slideIndex += n);
         autoSlide();
->>>>>>> 0b283ed5cddccc8711e6114429d996500d6400c0
     }
 
-    if (isset($_POST['btnPublish'])) {
-        $modIndex = $_POST['moduleIndex'];
-        $textsource = "modules.txt";
-        $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
-        $newcontent = "";
-
-        foreach ($textcontent as $index => $linetext) {
-            if ($index == $modIndex + 4) {
-                $newcontent .= "published\n";
-            } else {
-                $newcontent .= $linetext . "\n";
-            }
-        }
-
-        file_put_contents($textsource, $newcontent);
-        echo "<script>alert('Module published.'); window.location='searchmodule.php';</script>";
+    function currentSlide(n) {
+        clearTimeout(slideTimer);
+        showSlide(slideIndex = n);
+        autoSlide();
     }
 
-    if (isset($_POST['btnDelete'])) {
+    function showSlide(n) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots   = document.querySelectorAll('.dot');
 
-        $modIndex = $_POST['moduleIndex'];
-        $textsource = "modules.txt";
-        $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
 
-        $filepath = $textcontent[$modIndex + 3];
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
 
-        if (file_exists($filepath)) {
-            unlink($filepath);
-        }
-
-        $newcontent = "";
-
-        foreach ($textcontent as $index => $linetext) {
-
-            if ($index >= $modIndex && $index <= $modIndex + 4) {
-            } else {
-                $newcontent .= $linetext . "\n";
-            }
-
-        }
-
-        file_put_contents($textsource, $newcontent);
-
-        echo "
-        <script>
-            alert('Module and file deleted successfully.');
-            window.location='searchmodule.php';
-        </script>";
+        slides[slideIndex - 1].classList.add('active');
+        dots[slideIndex - 1].classList.add('active');
     }
 
-    ?>
-
-    <html>
-
-    <head>
-        <title>Learning Materials</title>
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-
-    <body class="has-bg">
-
-        <div class="navbar">
-            <div class="logo">Scholara</div>
-
-            <ul>
-                <li>
-                    <?php
-                    if ($_SESSION['sesUserType'] == "Teacher") {
-                        echo "<a href='home.php'>Home</a>";
-                    } else {
-                        echo "<a href='studenthome.php'>Home</a>";
-                    }
-                    ?>
-                </li>
-
-                <?php
-                if ($_SESSION['sesUserType'] == "Teacher") {
-                    echo "<li><a href='uploadmodule.php'>Upload</a></li>";
-                }
-                ?>
-
-                <li><a href="searchmodule.php" class="nav-active">Browse Modules</a></li>
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
-        </div>
-            <!-- //ai -->
-        <div class="carousel-container">
-            <div class="carousel-slides">
-                <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
-                <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
-                <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
-            </div>
-            <div class="carousel-dots">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-            </div>
-        </div>
-
-        <script>
-        let slideIndex = 1;
-        let slideTimer;
-
-        function changeSlide(n) {
-            clearTimeout(slideTimer);
-            showSlide(slideIndex += n);
-            autoSlide();
-        }
-
-        function currentSlide(n) {
-            clearTimeout(slideTimer);
-            showSlide(slideIndex = n);
-            autoSlide();
-        }
-
-        function showSlide(n) {
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots   = document.querySelectorAll('.dot');
-
-            if (n > slides.length) slideIndex = 1;
-            if (n < 1) slideIndex = slides.length;
-
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-
-            slides[slideIndex - 1].classList.add('active');
-            dots[slideIndex - 1].classList.add('active');
-        }
-
-        function autoSlide() {
-            slideTimer = setTimeout(() => {
-                slideIndex++;
-                showSlide(slideIndex);
-                autoSlide();
-            }, 5000);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
+    function autoSlide() {
+        slideTimer = setTimeout(() => {
+            slideIndex++;
             showSlide(slideIndex);
             autoSlide();
-        });
-        </script>
+        }, 5000);
+    }
 
-        <div class="container">
+    document.addEventListener('DOMContentLoaded', () => {
+        showSlide(slideIndex);
+        autoSlide();
+    });
+    </script>
 
-            <div class="page-header">
-                <div>
-                    <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:#FFFFFF;">
-                        Learning Materials
-                    </h1>
+    <div class="container">
 
-                    <p style="color:#FBFCF8; font-size:0.88rem; margin-top:4px;">
-                        Browse and download modules shared by teachers
-                    </p>
-                </div>
+        <div class="page-header">
+            <div>
+                <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:#FFFFFF;">
+                    Learning Materials
+                </h1>
+
+                <p style="color:#FBFCF8; font-size:0.88rem; margin-top:4px;">
+                    Browse and download modules shared by teachers
+                </p>
             </div>
+        </div>
 
-            <div class="card">
-                <form method="POST">
-                    <div class="search-bar">
-                        <div class="form-group">
-                            <label>Search by Category</label>
+        <div class="card">
+            <form method="POST">
+                <div class="search-bar">
+                    <div class="form-group">
+                        <label>Search by Category</label>
 
-                            <input type="text"
-                                name="txtSearch"
-                                class="form-control"
-                                placeholder="e.g. Programming, Mathematics...">
-                        </div>
-
-                        <input type="submit"
-                            name="btnSearch"
-                            value="Search"
-                            class="btn">
+                        <input type="text"
+                               name="txtSearch"
+                               class="form-control"
+                               placeholder="e.g. Programming, Mathematics...">
                     </div>
-                </form>
-            </div>
-                    <!-- ai -->
-            <?php
-            $textsource = "modules.txt";
-            $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
 
-            $allcategories = [];
+                    <input type="submit"
+                           name="btnSearch"
+                           value="Search"
+                           class="btn">
+                </div>
+            </form>
+        </div>
+                <!-- ai -->
+        <?php
+        $textsource = "modules.txt";
+        $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
 
-            foreach ($textcontent as $index => $linetext) { 
+        $allcategories = [];
+
+        foreach ($textcontent as $index => $linetext) { 
+
+            if ($index % 5 == 0) {
+
+                $category = $textcontent[$index + 1];
+                $status = $textcontent[$index + 4];
+
+                if ($_SESSION['sesUserType'] != "Teacher" && $status != "published") {
+                    continue;
+                }
+
+                if ($search != "" && $search != $textcontent[$index] && $search != $category) {
+                    continue;
+                }
+
+                $alreadyadded = false;
+
+                foreach ($allcategories as $cat) {
+                    if ($cat == $category) {
+                        $alreadyadded = true;
+                    }
+                }
+
+                if ($alreadyadded == false) {
+                    $allcategories[] = $category;
+                }
+            }
+        }
+
+        if (count($allcategories) == 0) {
+            echo '<div class="empty-state"><p>No modules found.</p></div>';
+        }
+
+        foreach ($allcategories as $cat) {
+
+            echo "<div class='subject-section'>";
+            echo "<div class='subject-section-header'><h2>" . $cat . "</h2></div>";
+            echo "<div class='module-grid'>";
+
+            foreach ($textcontent as $index => $linetext) {
 
                 if ($index % 5 == 0) {
 
+                    $subject = $textcontent[$index];
                     $category = $textcontent[$index + 1];
+                    $filetype = $textcontent[$index + 2];
+                    $filepath = $textcontent[$index + 3];
                     $status = $textcontent[$index + 4];
 
                     if ($_SESSION['sesUserType'] != "Teacher" && $status != "published") {
                         continue;
                     }
 
-                    if ($search != "" && $search != $textcontent[$index] && $search != $category) {
+                    if ($search != "" && $search != $subject && $search != $category) {
                         continue;
                     }
 
-                    $alreadyadded = false;
-
-                    foreach ($allcategories as $cat) {
-                        if ($cat == $category) {
-                            $alreadyadded = true;
-                        }
+                    if ($category != $cat) {
+                        continue;
                     }
 
-                    if ($alreadyadded == false) {
-                        $allcategories[] = $category;
-                    }
-                }
-            }
+        ?>
 
-            if (count($allcategories) == 0) {
-                echo '<div class="empty-state"><p>No modules found.</p></div>';
-            }
+                    <div class="module-card <?php if ($status == 'unpublished') { echo 'module-card-unpublished'; } ?>">
 
-            foreach ($allcategories as $cat) {
-
-                echo "<div class='subject-section'>";
-                echo "<div class='subject-section-header'><h2>" . $cat . "</h2></div>";
-                echo "<div class='module-grid'>";
-
-                foreach ($textcontent as $index => $linetext) {
-
-                    if ($index % 5 == 0) {
-
-                        $subject = $textcontent[$index];
-                        $category = $textcontent[$index + 1];
-                        $filetype = $textcontent[$index + 2];
-                        $filepath = $textcontent[$index + 3];
-                        $status = $textcontent[$index + 4];
-
-<<<<<<< HEAD
-                        if ($_SESSION['sesUserType'] != "Teacher" && $status != "published") {
-                            continue;
+                        <?php
+                        if ($_SESSION['sesUserType'] == "Teacher" && $status == "unpublished") {
+                            echo "<span class='module-status-badge'>Unpublished</span>";
                         }
-=======
-    
->>>>>>> 0b283ed5cddccc8711e6114429d996500d6400c0
+                        ?>
 
-                        if ($search != "" && $search != $subject && $search != $category) {
-                            continue;
-                        }
+                        <span class="module-card-type"><?php echo $filetype; ?></span>
 
-                        if ($category != $cat) {
-                            continue;
-                        }
+                        <h3><?php echo $subject; ?></h3>
 
-            ?>
+                        <div class="module-card-spacer"></div>
 
-                        <div class="module-card <?php if ($status == 'unpublished') { echo 'module-card-unpublished'; } ?>">
+                        <div class="module-card-footer">
+
+                            <a class="download-btn"
+                               href="download.php?file=<?php echo $filepath; ?>">
+                                Download Module
+                            </a>
 
                             <?php
-                            if ($_SESSION['sesUserType'] == "Teacher" && $status == "unpublished") {
-                                echo "<span class='module-status-badge'>Unpublished</span>";
+                            if ($_SESSION['sesUserType'] == "Teacher") {
+
+                                echo "<div class='teacher-actions'>";
+
+                                if ($status == "published") {
+
+                                    echo "
+                                    <form method='POST'>
+                                        <input type='hidden'
+                                               name='moduleIndex'
+                                               value='" . $index . "'>
+
+                                        <input type='submit'
+                                               name='btnUnpublish'
+                                               value='Unpublish'
+                                               class='btn-unpublish'>
+                                    </form>";
+
+                                } else {
+
+                                    echo "
+                                    <form method='POST'>
+                                        <input type='hidden'
+                                               name='moduleIndex'
+                                               value='" . $index . "'>
+
+                                        <input type='submit'
+                                               name='btnPublish'
+                                               value='Publish'
+                                               class='btn-publish'>
+                                    </form>";
+                                }
+
+                                echo "
+                                <form method='POST'
+                                      onsubmit=\"return confirm('Permanently DELETE this module? This cannot be undone.');\">
+
+                                    <input type='hidden'
+                                           name='moduleIndex'
+                                           value='" . $index . "'>
+
+                                    <input type='submit'
+                                           name='btnDelete'
+                                           value='Delete'
+                                           class='btn-delete'>
+                                </form>";
+
+                                echo "</div>";
                             }
                             ?>
 
-                            <span class="module-card-type"><?php echo $filetype; ?></span>
-
-                            <h3><?php echo $subject; ?></h3>
-
-                            <div class="module-card-spacer"></div>
-
-                            <div class="module-card-footer">
-
-                                <a class="download-btn"
-                                href="download.php?file=<?php echo $filepath; ?>">
-                                    Download Module
-                                </a>
-
-                                <?php
-                                if ($_SESSION['sesUserType'] == "Teacher") {
-
-                                    echo "<div class='teacher-actions'>";
-
-                                    if ($status == "published") {
-
-                                        echo "
-                                        <form method='POST'>
-                                            <input type='hidden'
-                                                name='moduleIndex'
-                                                value='" . $index . "'>
-
-                                            <input type='submit'
-                                                name='btnUnpublish'
-                                                value='Unpublish'
-                                                class='btn-unpublish'>
-                                        </form>";
-
-                                    } else {
-
-                                        echo "
-                                        <form method='POST'>
-                                            <input type='hidden'
-                                                name='moduleIndex'
-                                                value='" . $index . "'>
-
-                                            <input type='submit'
-                                                name='btnPublish'
-                                                value='Publish'
-                                                class='btn-publish'>
-                                        </form>";
-                                    }
-
-                                    echo "
-                                    <form method='POST'
-                                        onsubmit=\"return confirm('Permanently DELETE this module? This cannot be undone.');\">
-
-                                        <input type='hidden'
-                                            name='moduleIndex'
-                                            value='" . $index . "'>
-
-                                        <input type='submit'
-                                            name='btnDelete'
-                                            value='Delete'
-                                            class='btn-delete'>
-                                    </form>";
-
-                                    echo "</div>";
-                                }
-                                ?>
-
-                            </div>
-
                         </div>
 
-            <?php
-                    }
-                }
+                    </div>
 
-                echo "</div>";
-                echo "</div>";
+        <?php
+                }
             }
 
-            ?>
+            echo "</div>";
+            echo "</div>";
+        }
 
-        </div>
+        ?>
 
-        <div class="footer">
+    </div>
 
-            <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
+    <div class="footer">
 
-        </div>  
+        <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
 
-        <!-- //ai -->
+    </div>  
 
-    </body>
+    
 
-    </html>
+</body>
+
+</html>
