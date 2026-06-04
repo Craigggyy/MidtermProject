@@ -144,7 +144,7 @@ if (!isset($_SESSION['sesUser']))
             </div>
 
         </div>
-
+                <!-- ai -->
         <div class="student-feature-strip">
 
             <div class="student-feature-item">
@@ -190,6 +190,7 @@ if (!isset($_SESSION['sesUser']))
         <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
 
     </div>
+    <!-- ai -->
 
 </body>
 

@@ -58,6 +58,8 @@ if (!isset($_SESSION['sesUser']))
             <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
             <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
         </div>
+
+        <!-- ai -->
         <div class="carousel-dots">
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
@@ -184,6 +186,8 @@ if (!isset($_SESSION['sesUser']))
         <strong>Scholara</strong> &mdash; E-Learning Module Distribution System &copy; 2026
 
     </div>
+
+    <!-- ai -->
 
 </body>
 
