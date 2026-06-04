@@ -54,14 +54,11 @@ if (isset($_POST['btnRegister']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scholara — Create Account</title>
 
-    <!-- UI CHANGE: Added Google Fonts for refined typography pairing -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- UI CHANGE: Page-scoped styles for the two-column register layout -->
     <style>
         .register-page {
             min-height: 100vh;
@@ -202,25 +199,38 @@ if (isset($_POST['btnRegister']))
             align-items: center;
             justify-content: center;
             padding: 60px 72px;
-            background: url('images/p1.jpg') center center/cover no-repeat;
             position: relative;
+            overflow: hidden;
         }
+
+        .register-right::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/p1.jpg') center center/cover no-repeat;
+            filter: brightness(0.55);
+            transform: scale(1.05);
+            z-index: 0;
+        }
+
         .register-card {
             width: 100%;
             max-width: 400px;
+            position: relative;
+            z-index: 1;
         }
 
         .register-card__heading {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 600;
-            color: var(--gray-900);
+            color: --white: #FFFFFF;
             margin-bottom: 4px;
             line-height: 1.2;
         }
 
         .register-card__sub {
-            color: var(--gray-500);
+            color: --white: #FFFFFF;
             font-size: 0.88rem;
             font-weight: 400;
             margin-bottom: 36px;
@@ -228,7 +238,7 @@ if (isset($_POST['btnRegister']))
         }
 
         .register-card .form-group label {
-            color: var(--gray-700);
+            color: --white: #FFFFFF;
         }
 
         .register-steps {
@@ -242,7 +252,7 @@ if (isset($_POST['btnRegister']))
             width: 28px;
             height: 4px;
             border-radius: 2px;
-            background: var(--gray-200);
+            background: var(--white-200);
         }
 
         .register-step.active {
@@ -289,7 +299,7 @@ if (isset($_POST['btnRegister']))
         .role-card__label {
             font-size: 0.88rem;
             font-weight: 600;
-            color: var(--gray-700);
+            color: --white: #FFFFFF;
         }
 
         .role-card.selected .role-card__label {
@@ -417,7 +427,6 @@ if (isset($_POST['btnRegister']))
 
                 <form method="POST">
 
-                    <!-- Username -->
                     <div class="form-group">
                         <label for="txtUsername">Username</label>
                         <input
@@ -430,7 +439,6 @@ if (isset($_POST['btnRegister']))
                             required>
                     </div>
 
-                    <!-- Password -->
                     <div class="form-group">
                         <label for="txtPassword">Password</label>
                         <input
@@ -447,7 +455,6 @@ if (isset($_POST['btnRegister']))
                     <div class="form-group">
                         <label>Account Type</label>
 
-                        <!-- Visual role picker (JS syncs to hidden select) -->
                         <div class="role-cards" id="roleCards">
 
                             <div class="role-card selected" data-value="Teacher" tabindex="0" role="button" aria-pressed="true">
@@ -462,7 +469,6 @@ if (isset($_POST['btnRegister']))
 
                         </div>
 
-                        <!-- Hidden select — submitted to PHP, value kept in sync by JS -->
                         <select name="txtUserType" class="role-select-hidden" id="txtUserType">
                             <option value="Teacher">Teacher</option>
                             <option value="Student">Student</option>
@@ -491,7 +497,7 @@ if (isset($_POST['btnRegister']))
         </div>
 
     </div>
-
+    <!-- ai -->
     <script>
         (function () {
             const cards  = document.querySelectorAll('#roleCards .role-card');
@@ -519,7 +525,7 @@ if (isset($_POST['btnRegister']))
             });
         })();
     </script>
-
+     <!-- ai -->
 </body>
 
 </html>
