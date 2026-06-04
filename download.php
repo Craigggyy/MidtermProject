@@ -16,7 +16,7 @@ if (isset($_GET['file']))
     }
     else
     {
-        die("File Not Foundd");
+        die("File Not Found");
     }
 }
 
