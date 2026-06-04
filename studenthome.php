@@ -42,9 +42,7 @@ if (!isset($_SESSION['sesUser']))
                 <a href="searchmodule.php">Modules</a>
             </li>
 
-            <li style="visibility:hidden;">
-        <a href="#">Upload</a>
-        </li>
+          
 
             <li>
                 <a href="logout.php">Logout</a>
