@@ -52,7 +52,7 @@ if (isset($_POST['btnRegister']))
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduVault — Create Account</title>
+    <title>Scholara — Create Account</title>
 
     <!-- UI CHANGE: Added Google Fonts for refined typography pairing -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,10 +63,6 @@ if (isset($_POST['btnRegister']))
 
     <!-- UI CHANGE: Page-scoped styles for the two-column register layout -->
     <style>
-
-        /* ── REGISTER PAGE LAYOUT ────────────────────────────────────── */
-
-        /* Full-viewport split layout replacing the plain auth-container */
         .register-page {
             min-height: 100vh;
             display: grid;
@@ -74,7 +70,7 @@ if (isset($_POST['btnRegister']))
             background: var(--white);
         }
 
-        /* ── LEFT PANEL — brand / illustration side ── */
+        /* ── LEFT PANEL  ── */
         .register-left {
             background: linear-gradient(160deg, var(--red-dark) 0%, var(--red) 55%, #e05a4a 100%);
             display: flex;
@@ -85,7 +81,6 @@ if (isset($_POST['btnRegister']))
             overflow: hidden;
         }
 
-        /* Decorative circles for depth — purely visual */
         .register-left::before {
             content: '';
             position: absolute;
@@ -110,7 +105,6 @@ if (isset($_POST['btnRegister']))
             pointer-events: none;
         }
 
-        /* Brand wordmark */
         .register-brand {
             font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
@@ -125,7 +119,6 @@ if (isset($_POST['btnRegister']))
             gap: 10px;
         }
 
-        /* Small red dot accent before brand name */
         .register-brand::before {
             content: '';
             display: inline-block;
@@ -148,7 +141,6 @@ if (isset($_POST['btnRegister']))
             margin-bottom: 48px;
         }
 
-        /* Feature bullet points */
         .register-features {
             list-style: none;
             display: flex;
@@ -167,7 +159,6 @@ if (isset($_POST['btnRegister']))
             font-weight: 400;
         }
 
-        /* Checkmark icon for feature items */
         .register-features li::before {
             content: '✓';
             display: flex;
@@ -183,7 +174,6 @@ if (isset($_POST['btnRegister']))
             flex-shrink: 0;
         }
 
-        /* Decorative dash strip below tagline */
         .register-dashes {
             display: flex;
             gap: 8px;
@@ -206,22 +196,20 @@ if (isset($_POST['btnRegister']))
         .register-dashes span:nth-child(2) { width: 28px; }
         .register-dashes span:nth-child(3) { width: 16px; }
 
-        /* ── RIGHT PANEL — form side ── */
+        /*RIGHT PANEL */
         .register-right {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 60px 72px;
-            background: var(--gray-50);
+            background: url('images/p1.jpg') center center/cover no-repeat;
+            position: relative;
         }
-
-        /* Form card */
         .register-card {
             width: 100%;
             max-width: 400px;
         }
 
-        /* Page heading */
         .register-card__heading {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
@@ -231,7 +219,6 @@ if (isset($_POST['btnRegister']))
             line-height: 1.2;
         }
 
-        /* Sub-heading */
         .register-card__sub {
             color: var(--gray-500);
             font-size: 0.88rem;
@@ -240,12 +227,10 @@ if (isset($_POST['btnRegister']))
             line-height: 1.6;
         }
 
-        /* Override form-group label color for light background */
         .register-card .form-group label {
             color: var(--gray-700);
         }
 
-        /* Progress / step indicator (purely decorative) */
         .register-steps {
             display: flex;
             align-items: center;
@@ -265,8 +250,6 @@ if (isset($_POST['btnRegister']))
             width: 40px;
         }
 
-        /* Role selector cards — replaces plain <select> visually
-           NOTE: The hidden <select> still submits the value for PHP */
         .role-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -313,12 +296,10 @@ if (isset($_POST['btnRegister']))
             color: var(--red-dark);
         }
 
-        /* The real <select> is hidden but still submits correctly */
         .role-select-hidden {
             display: none;
         }
 
-        /* Sign-in link row */
         .register-signin {
             text-align: center;
             margin-top: 24px;
@@ -336,14 +317,13 @@ if (isset($_POST['btnRegister']))
             text-decoration: underline;
         }
 
-        /* Divider between form and link */
         .register-divider {
             height: 1px;
             background: var(--gray-200);
             margin: 24px 0 20px;
         }
 
-        /* ── RESPONSIVE ── */
+
         @media (max-width: 900px) {
             .register-page {
                 grid-template-columns: 1fr;
@@ -359,7 +339,7 @@ if (isset($_POST['btnRegister']))
             }
 
             .register-features {
-                display: none; /* hide on small screens to reduce clutter */
+                display: none; 
             }
 
             .register-right {
@@ -392,25 +372,25 @@ if (isset($_POST['btnRegister']))
 
 <body>
 
-    <!-- UI CHANGE: Two-column split layout (brand left / form right) -->
+
     <div class="register-page">
 
-        <!-- ── LEFT PANEL ── -->
+
         <div class="register-left">
 
-            <div class="register-brand">EduVault</div>
+            <div class="register-brand">Scholara</div>
 
             <p class="register-tagline">
                 Your centralised hub for academic modules,<br>
                 resources, and learning materials.
             </p>
 
-            <!-- Decorative dashes -->
+
             <div class="register-dashes">
                 <span></span><span></span><span></span>
             </div>
 
-            <!-- Feature highlights -->
+
             <ul class="register-features">
                 <li>Access course materials anytime</li>
                 <li>Upload and share learning resources</li>
@@ -420,12 +400,12 @@ if (isset($_POST['btnRegister']))
 
         </div>
 
-        <!-- ── RIGHT PANEL ── -->
+ 
         <div class="register-right">
 
             <div class="register-card">
 
-                <!-- Step indicator (decorative) -->
+
                 <div class="register-steps">
                     <div class="register-step active"></div>
                     <div class="register-step"></div>
@@ -433,9 +413,8 @@ if (isset($_POST['btnRegister']))
                 </div>
 
                 <h2 class="register-card__heading">Create Account</h2>
-                <p class="register-card__sub">Join EduVault and access learning resources.</p>
+                <p class="register-card__sub">Join Scholara and access learning resources.</p>
 
-                <!-- ── FORM — all names/actions/method unchanged ── -->
                 <form method="POST">
 
                     <!-- Username -->
@@ -464,9 +443,7 @@ if (isset($_POST['btnRegister']))
                             required>
                     </div>
 
-                    <!-- Account Type
-                         UI CHANGE: Visual role-card picker drives the hidden <select>
-                         so PHP still receives txtUserType exactly as before -->
+        
                     <div class="form-group">
                         <label>Account Type</label>
 
@@ -515,8 +492,6 @@ if (isset($_POST['btnRegister']))
 
     </div>
 
-    <!-- UI CHANGE: Small JS to sync visual role cards → hidden select.
-         No PHP logic is touched; only the displayed value changes. -->
     <script>
         (function () {
             const cards  = document.querySelectorAll('#roleCards .role-card');
@@ -535,7 +510,6 @@ if (isset($_POST['btnRegister']))
             cards.forEach(card => {
                 card.addEventListener('click', () => activate(card));
 
-                // Keyboard accessibility
                 card.addEventListener('keydown', e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();

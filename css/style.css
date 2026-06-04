@@ -412,7 +412,7 @@ body.has-bg .hero-right::before {
   position: absolute;
   inset: 0;
   background: url('../images/p1.jpg') center/cover no-repeat;
-  filter: blur(6px) brightness(0.55);
+  filter: brightness(0.55);
   z-index: -1;
 }
 
