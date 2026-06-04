@@ -177,7 +177,7 @@ if (isset($_POST['btnDelete'])) {
                     Learning Materials
                 </h1>
 
-                <p style="color:#FBFCF8; font-size:0.88rem; margin-top:4px;">
+                <p style="color:#FFFFFF; font-size:0.88rem; margin-top:4px;">
                     Browse and download modules shared by teachers
                 </p>
             </div>
@@ -272,7 +272,7 @@ if (isset($_POST['btnDelete'])) {
 
         ?>
 
-                    <div class="module-card <?php if ($status == 'unpublished') { echo 'module-card-unpublished'; } ?>">
+                    <div class="module-card module-card-<?php echo strtolower(str_replace(' ', '-', $category)); ?> <?php if ($status == 'unpublished') { echo 'module-card-unpublished'; } ?>">
 
                         <?php
                         if ($_SESSION['sesUserType'] == "Teacher" && $status == "unpublished") {

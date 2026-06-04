@@ -95,8 +95,8 @@ href="css/style.css">
 
     <div class="page-header">
         <div>
-            <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:#1A1A1A;">Upload Learning Module</h1>
-            <p style="color:#888; font-size:0.88rem; margin-top:4px;">Share educational materials with your students</p>
+            <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:#FFFFFF;">Upload Learning Module</h1>
+            <p style="color:#FFFFFF; font-size:0.88rem; margin-top:4px;">Share educational materials with your students</p>
         </div>
     </div>
 
@@ -109,7 +109,7 @@ href="css/style.css">
 
             <div class="form-group">
 
-                <label style="color:#FFFFFF; font-weight:900;">Module Name</label>
+                <label style="color:#000000; font-weight:900;">Module Name</label>
 
                 <input
                     type="text"
