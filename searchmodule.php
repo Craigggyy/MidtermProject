@@ -111,7 +111,6 @@ if (isset($_POST['btnDelete'])) {
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
-<<<<<<< HEAD
         <!-- //ai -->
     <div class="carousel-container">
         <div class="carousel-slides">
@@ -169,8 +168,6 @@ if (isset($_POST['btnDelete'])) {
         autoSlide();
     });
     </script>
-=======
->>>>>>> 5b1e2bb086dddf16929a8907de828d86630c863d
 
     <div class="container">
 
@@ -205,15 +202,14 @@ if (isset($_POST['btnDelete'])) {
                 </div>
             </form>
         </div>
-
+                <!-- ai -->
         <?php
-
         $textsource = "modules.txt";
         $textcontent = file($textsource, FILE_IGNORE_NEW_LINES);
 
         $allcategories = [];
 
-        foreach ($textcontent as $index => $linetext) {
+        foreach ($textcontent as $index => $linetext) { 
 
             if ($index % 5 == 0) {
 
@@ -366,17 +362,12 @@ if (isset($_POST['btnDelete'])) {
     </div>
 
     <div class="footer">
-<<<<<<< HEAD
 
         <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
 
     </div>  
 
     <!-- //ai -->
-=======
-        <strong>Scholara</strong> &mdash; Learning Materials Library &copy; 2026
-    </div>
->>>>>>> 5b1e2bb086dddf16929a8907de828d86630c863d
 
 </body>
 
