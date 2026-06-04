@@ -107,7 +107,7 @@ if (isset($_POST['btnDelete'])) {
             }
             ?>
 
-            <li><a href="searchmodule.php" class="nav-active">Browse Modules</a></li>
+            <li><a href="searchmodule.php" class="nav-active">Modules</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
