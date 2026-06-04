@@ -130,7 +130,7 @@ if (isset($_POST['btnDelete'])) {
             <form method="POST">
                 <div class="search-bar">
                     <div class="form-group">
-                        <label>Search by Subject</label>
+                        <label>Search by Category</label>
 
                         <input type="text"
                                name="txtSearch"
