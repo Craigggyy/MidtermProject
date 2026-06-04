@@ -37,11 +37,11 @@ if (!isset($_SESSION['sesUser']))
             </li>
 
             <li>
-                <a href="uploadmodule.php">Upload Module</a>
+                <a href="uploadmodule.php">Module</a>
             </li>
 
             <li>
-                <a href="searchmodule.php">Browse Modules</a>
+                <a href="searchmodule.php">Modules</a>
             </li>
 
             <li>
