@@ -169,7 +169,7 @@ body.has-bg.bg-4::before {
   
 }
 .navbar ul li:not(:last-child) {
-    transform: translateX(200px);
+    transform: translateX(210px);
 }
 
 .navbar ul li:first-child {
