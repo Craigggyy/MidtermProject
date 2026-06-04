@@ -438,6 +438,11 @@ body.has-bg .hero-right::before {
 .hero-box {
   width: 100%;
   max-width: 400px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 32px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
 }
 
 .hero-box h1 {
@@ -522,9 +527,10 @@ body.has-bg .hero-right::before {
   margin-bottom: 7px;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #000000;
+  color: #C0392B; /* same red color */
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .form-control {

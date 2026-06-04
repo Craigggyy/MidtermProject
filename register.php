@@ -218,24 +218,29 @@ if (isset($_POST['btnRegister']))
             max-width: 400px;
             position: relative;
             z-index: 1;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 32px 28px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(6px);
         }
 
         .register-card__heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 600;
-            color: --white: #FFFFFF;
-            margin-bottom: 4px;
-            line-height: 1.2;
-        }
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
 
-        .register-card__sub {
-            color: --white: #FFFFFF;
-            font-size: 0.88rem;
-            font-weight: 400;
-            margin-bottom: 36px;
-            line-height: 1.6;
-        }
+.register-card__sub {
+    color: #FFFFFF;
+    font-size: 0.88rem;
+    font-weight: 400;
+    margin-bottom: 36px;
+    line-height: 1.6;
+}
 
         .register-card .form-group label {
             color: --white: #FFFFFF;
