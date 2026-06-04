@@ -367,7 +367,7 @@ body.has-bg.bg-4::before {
 
 .hero-left-brand {
   font-family: 'Playfair Display', serif;
-  font-size: 7rem;
+  font-size: 3.2rem;
   font-weight: 700;
   color: var(--white);
   line-height: 1.1;
@@ -398,7 +398,7 @@ body.has-bg.bg-4::before {
   width: 40px;
   height: 4px;
   border-radius: 2px;
-  background: rgb(255, 255, 255);
+  background: rgba(255,255,255,0.3);
 }
 
 .hero-decor span:first-child {
@@ -429,7 +429,7 @@ body.has-bg .hero-right::before {
   position: absolute;
   inset: 0;
   background: url('../images/p1.jpg') center/cover no-repeat;
-  filter: brightness(0.55);
+  filter: blur(6px) brightness(0.55);
   z-index: -1;
 }
 
@@ -819,36 +819,60 @@ input[type="file"]::file-selector-button:hover {
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  border-left: 4px solid var(--red);
+  background: linear-gradient(135deg, #6b1f1f 0%, #8b2e2e 100%);
+  border: none;
+  color: var(--white);
+  position: relative;
+}
+
+.card-welcome-text {
+  position: relative;
+}
+
+.card-welcome-text::before {
+  content: 'GOOD TO SEE YOU';
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
 }
 
 .card-welcome-text h1 {
   margin-bottom: 8px;
+  color: var(--white);
+}
+
+.card-welcome-text p {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .card-welcome-badge {
-  background: var(--red-pale);
-  border: 1px solid rgba(192,57,43,0.2);
-  border-radius: 40px;
-  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 16px 28px;
   text-align: center;
   white-space: nowrap;
   flex-shrink: 0;
+  backdrop-filter: blur(10px);
 }
 
 .card-welcome-badge span {
   display: block;
-  font-size: 0.75rem;
-  color: var(--red);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .card-welcome-badge strong {
-  font-size: 1rem;
-  color: var(--gray-900);
+  font-size: 1.1rem;
+  color: var(--white);
   font-weight: 600;
 }
 
@@ -1200,12 +1224,12 @@ body:not(.has-bg) .footer {
 /* ─── STUDENT HOME HERO CARD ─── */
 .student-hero-card {
   position: relative;
-  background: linear-gradient(135deg, #1a0a09 0%, #2d1210 40%, #96281B 100%);
+  background: linear-gradient(135deg, #6b1f1f 0%, #8b2e2e 100%);
   border-radius: 24px;
   padding: 52px 48px;
   margin-bottom: 24px;
   overflow: hidden;
-  box-shadow: 0 12px 48px rgba(192,57,43,0.28);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.25);
 }
 
 .student-hero-bg-shapes {
