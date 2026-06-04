@@ -110,30 +110,75 @@ if (!isset($_SESSION['sesUser']))
 
     <div class="container">
 
-        <div class="card card-welcome">
+        <div class="student-hero-card">
 
-            <div class="card-welcome-text">
+            <div class="student-hero-bg-shapes">
+                <span class="shape shape-1"></span>
+                <span class="shape shape-2"></span>
+                <span class="shape shape-3"></span>
+            </div>
 
-                <h1>
-                    Welcome,
-                    <?php echo $_SESSION['sesUser']; ?>
-                </h1>
+            <div class="student-hero-content">
 
-                <p>
-                    Browse and download learning materials uploaded by your teachers. Find everything you need in one place.
-                </p>
+                <div class="student-hero-greeting">
+                    <span class="student-greeting-eyebrow">Good to see you</span>
+                    <h1 class="student-hero-name">
+                        Welcome back, <em><?php echo $_SESSION['sesUser']; ?></em>
+                    </h1>
+                    <p class="student-hero-sub">
+                        Your learning materials are ready. Browse modules shared by your teachers and download what you need — all in one place.
+                    </p>
+                    <div class="student-hero-actions">
+                        <a href="searchmodule.php" class="btn student-cta-btn">Browse Modules</a>
+                        <span class="student-hero-hint">All subjects available</span>
+                    </div>
+                </div>
 
-                <br>
-
-                <a href="searchmodule.php">
-                    <button class="btn">Browse Modules</button>
-                </a>
+                <div class="student-hero-badge-wrap">
+                    <div class="student-role-badge">
+                        <span class="student-role-label">Logged in as</span>
+                        <strong class="student-role-name">Student</strong>
+                    </div>
+                </div>
 
             </div>
 
-            <div class="card-welcome-badge">
-                <span>Logged in as</span>
-                <strong>Student</strong>
+        </div>
+
+        <div class="student-feature-strip">
+
+            <div class="student-feature-item">
+                <div class="student-feature-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <div>
+                    <h4>Browse Modules</h4>
+                    <p>Access all learning materials by subject and category</p>
+                </div>
+            </div>
+
+            <div class="student-feature-divider"></div>
+
+            <div class="student-feature-item">
+                <div class="student-feature-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+                <div>
+                    <h4>Download Anytime</h4>
+                    <p>Save PDFs, documents, and study files to your device</p>
+                </div>
+            </div>
+
+            <div class="student-feature-divider"></div>
+
+            <div class="student-feature-item">
+                <div class="student-feature-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <div>
+                    <h4>Search by Subject</h4>
+                    <p>Filter modules by category to find exactly what you need</p>
+                </div>
             </div>
 
         </div>
