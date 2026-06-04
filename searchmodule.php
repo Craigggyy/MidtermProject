@@ -120,7 +120,7 @@ if (isset($_POST['btnDelete'])) {
                     Learning Materials
                 </h1>
 
-                <p style="color:#888; font-size:0.88rem; margin-top:4px;">
+                <p style="color:#FBFCF8; font-size:0.88rem; margin-top:4px;">
                     Browse and download modules shared by teachers
                 </p>
             </div>
