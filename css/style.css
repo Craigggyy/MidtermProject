@@ -423,13 +423,14 @@ body.has-bg .hero-right::before {
   font-family: 'Playfair Display', serif;
   font-size: 1.9rem;
   font-weight: 600;
-  color: var(--gray-900);
+  color: var(--white);
   margin-bottom: 6px;
 }
 
 .hero-box > p {
-  color: var(--gray-500);
+  color: #ffffff;
   font-size: 0.9rem;
+  font-weight: 500;
   margin-bottom: 36px;
 }
 
