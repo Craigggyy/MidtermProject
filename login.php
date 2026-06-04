@@ -61,7 +61,7 @@ if (isset($_POST['btnLogin']))
 
 <head>
 
-    <title>Scholara — Login</title>
+    <title>University — Login</title>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -73,13 +73,9 @@ if (isset($_POST['btnLogin']))
 
         <div class="hero-left">
 
-            <div class="hero-left-brand">Scholara</div>
+            <div class="hero-left-brand">University</div>
 
             <p class="hero-left-sub">Your centralized platform for learning modules. Teachers upload. Students discover. Education simplified.</p>
-
-            <div class="hero-decor">
-                <span></span><span></span><span></span>
-            </div>
 
         </div>
 

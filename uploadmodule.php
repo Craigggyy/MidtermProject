@@ -43,6 +43,7 @@ function uploadmodule()
         fwrite($file, $category . "\n");
         fwrite($file, strtoupper($filetype) . "\n");
         fwrite($file, $targetFile . "\n");
+        fwrite($file, "published" . "\n");
 
         fclose($file);
 
@@ -88,7 +89,7 @@ if (isset($_POST['btnUpload']))
             </li>
 
             <li>
-                <a href="uploadmodule.php">Upload</a>
+                <a href="uploadmodule.php" class="nav-active">Upload</a>
             </li>
 
             <li>
@@ -176,24 +177,12 @@ if (isset($_POST['btnUpload']))
 
         </div>
 
-        <div class="card">
-
-            <h2>Upload Guidelines</h2>
-
-            <ul class="guidelines-list">
-                <li>PDF Files</li>
-                <li>Word Documents</li>
-                <li>PowerPoint Files</li>
-                <li>ZIP Learning Packages</li>
-            </ul>
-
-        </div>
 
     </div>
 
     <div class="footer">
 
-        <strong>EduVault</strong> &mdash; E-Learning System &copy; 2026
+        <strong>Scholara</strong> &mdash; E-Learning System &copy; 2026
 
     </div>
 

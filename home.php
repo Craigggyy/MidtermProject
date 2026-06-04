@@ -33,7 +33,7 @@ if (!isset($_SESSION['sesUser']))
         <ul>
 
             <li>
-                <a href="home.php">Home</a>
+                <a href="home.php" class="nav-active">Home</a>
             </li>
 
             <li>
@@ -58,8 +58,6 @@ if (!isset($_SESSION['sesUser']))
             <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
             <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
         </div>
-        <button class="carousel-prev" onclick="changeSlide(-1)">❮</button>
-        <button class="carousel-next" onclick="changeSlide(1)">❯</button>
         <div class="carousel-dots">
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
@@ -176,16 +174,6 @@ if (!isset($_SESSION['sesUser']))
                 <b><?php echo $_SESSION['sesUser']; ?></b>
 
             </div>
-
-        </div>
-
-        <div class="card">
-
-            <h2>About Scholara</h2>
-
-            <p>
-                Scholara is an E-Learning Module Distribution System that allows teachers to upload modules while students can search and download learning materials seamlessly.
-            </p>
 
         </div>
 
