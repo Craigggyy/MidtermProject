@@ -111,6 +111,66 @@ if (isset($_POST['btnDelete'])) {
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
+<<<<<<< HEAD
+        <!-- //ai -->
+    <div class="carousel-container">
+        <div class="carousel-slides">
+            <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
+            <img src="images/banner2.jpg" class="carousel-slide" alt="Slide 2">
+            <img src="images/banner3.jpg" class="carousel-slide" alt="Slide 3">
+        </div>
+        <div class="carousel-dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+
+    <script>
+    let slideIndex = 1;
+    let slideTimer;
+
+    function changeSlide(n) {
+        clearTimeout(slideTimer);
+        showSlide(slideIndex += n);
+        autoSlide();
+    }
+
+    function currentSlide(n) {
+        clearTimeout(slideTimer);
+        showSlide(slideIndex = n);
+        autoSlide();
+    }
+
+    function showSlide(n) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots   = document.querySelectorAll('.dot');
+
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        slides[slideIndex - 1].classList.add('active');
+        dots[slideIndex - 1].classList.add('active');
+    }
+
+    function autoSlide() {
+        slideTimer = setTimeout(() => {
+            slideIndex++;
+            showSlide(slideIndex);
+            autoSlide();
+        }, 5000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showSlide(slideIndex);
+        autoSlide();
+    });
+    </script>
+=======
+>>>>>>> 5b1e2bb086dddf16929a8907de828d86630c863d
 
     <div class="container">
 
@@ -306,8 +366,17 @@ if (isset($_POST['btnDelete'])) {
     </div>
 
     <div class="footer">
+<<<<<<< HEAD
+
+        <strong>Scholara</strong> &mdash; Student Portal &copy; 2026
+
+    </div>  
+
+    <!-- //ai -->
+=======
         <strong>Scholara</strong> &mdash; Learning Materials Library &copy; 2026
     </div>
+>>>>>>> 5b1e2bb086dddf16929a8907de828d86630c863d
 
 </body>
 

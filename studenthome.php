@@ -48,6 +48,8 @@ if (!isset($_SESSION['sesUser']))
 
     </div>
 
+        <!-- //ai -->
+
     <div class="carousel-container">
         <div class="carousel-slides">
             <img src="images/banner1.jpg" class="carousel-slide" alt="Slide 1">
@@ -104,6 +106,7 @@ if (!isset($_SESSION['sesUser']))
         autoSlide();
     });
     </script>
+        <!-- //ai -->
 
     <div class="container">
 
