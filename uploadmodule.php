@@ -109,7 +109,7 @@ href="css/style.css">
 
             <div class="form-group">
 
-                <label>Subject Name</label>
+                <label style="color:#000000; font-weight:900;">Module Name</label>
 
                 <input
                     type="text"
