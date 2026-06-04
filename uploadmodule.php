@@ -122,7 +122,7 @@ href="css/style.css">
 
             <div class="form-group">
 
-                <label>Module Category</label>
+                <label>Subject Category</label>
 
                 <select
                     name="txtCategory"
