@@ -1,8 +1,3 @@
-English
-Networking
-PDF
-uploads/UE Online Registration.pdf
-published
 Science
 Database
 PDF
@@ -27,4 +22,14 @@ daadw
 Information Technology
 PDF
 uploads/M4A2 - Buencamino - Discrete Math.pdf
+published
+zz
+Science
+PDF
+uploads/UE Online Registration (3).pdf
+published
+aaaa
+Information Technology
+PDF
+uploads/Data_Analytics_Essentials_certificate_pasiadelashley-gmail-com_88303c34-8eaf-4181-893c-266f1754135e (2).pdf
 published
